@@ -23,11 +23,16 @@ void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* 
 
 	Logger("Key released: ", event.key.scancode, event.key.code);
 
+	for (const auto& maps : Consts::KeyActionMap) {
+		EraseActions(maps, game->player->actions);
+	}
+
 	//game->player.directions.clear();
 	for (const auto& maps : Consts::KeyDirectionMap) {
 		EraseActions(maps, game->player->directions);
 
 	}
+
 }
 
 

@@ -14,6 +14,13 @@ Game::Game(sf::RenderWindow* w) {
 		i++;
 	}
 
+	for (auto& text : textures) {
+		if (text->type == Consts::GraphicObjectType::Player) {
+			player = std::make_unique<Player>(text);
+			break;
+		}
+	}
+
 	//Textures.push_back(std::make_unique<sf::Texture>());
 	//Sprites.push_back(std::make_unique<sf::Sprite>());
 
@@ -29,24 +36,36 @@ void Game::Draw() {
 	/*for (const auto& sprite : Sprites) {
 		window->draw(*sprite);
 	}*/
-	player->Move();
-	player->Draw(syncImageCount, window);
+	auto renderTime = clock.restart().asSeconds();
+	gameTime += renderTime;
+	if (player->actionColdDown > 0)
+		player->actionColdDown -= renderTime;
 
-	syncImageCount++;
-	syncImageCount = (syncImageCount + 1) % (128 * Consts::ANIMATE_EVERY_XFRAME);
+	int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
+	int moveFrameCnt = (gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND;
+
+	if (moveFrameCount != moveFrameCnt)
+		player->Move();
+	player->Draw(animationPos, window);
 
 	for (const auto& proj : projectiles) {
-		proj->Draw(syncImageCount, window);
+		if (moveFrameCount != moveFrameCnt)
+			proj->Move();
+		proj->Draw(animationPos, window);
+		if (IsInsideWindow(proj->sprite->getPosition())) {
+			proj->healt = 0;
+		}
 	}
+	std::erase_if(projectiles, [](const std::unique_ptr<Projectile>& p) {return p->healt <= 0; });
 
+	moveFrameCount = moveFrameCnt;
 	MakeActions();
 }
 
 void Game::MakeActions() {
 	for (const auto& act : player->actions)
 	{
-		if (player->actionColdDown > 0) {
-			player->actions.clear();
+		if (player->actionColdDown > 0.f) {
 			return;
 		}
 		switch (act)
@@ -54,8 +73,9 @@ void Game::MakeActions() {
 		case Consts::Action::Shoot:
 			for (auto& text : textures) {
 				if (text->type == Consts::GraphicObjectType::Projectile) {
-					projectiles.push_back(std::make_unique<Projectile>(text,player->sprite->getPosition()));
-					player->actionColdDown = 1.f;
+					projectiles.push_back(std::make_unique<Projectile>(text, player->sprite->getPosition()));
+					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
+					break;
 				}
 			}
 			break;
@@ -64,4 +84,17 @@ void Game::MakeActions() {
 		}
 	}
 	player->actions.clear();
+}
+
+bool Game::IsInsideWindow(sf::Vector2f pos) {
+
+	auto wSize = window->getSize();
+
+	if (wSize.x < pos.x || wSize.y < pos.y)
+		return true;
+
+	if (pos.x < 0 || pos.y < 0)
+		return true;
+
+	return false;
 }

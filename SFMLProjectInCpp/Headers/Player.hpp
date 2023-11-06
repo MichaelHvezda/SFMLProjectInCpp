@@ -23,7 +23,7 @@ public:
 	Player(std::shared_ptr<TextureWithType>& t);
 	~Player();
 public:
-	void Draw(int drawCount, sf::RenderWindow* w);
+	void Draw(int frameAnimation, sf::RenderWindow* w);
 	void SetDefaultPosition(sf::RenderWindow* w);
 	void Move();
 

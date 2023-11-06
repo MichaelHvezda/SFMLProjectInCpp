@@ -15,12 +15,14 @@ public:
 	std::shared_ptr<TextureWithType> texture;
 	sf::Vector2f direction;
 	int textureCount = 0;
+	int healt = 1;
 	sf::Vector2u vectorSize;
 public:
 	Projectile(std::shared_ptr<TextureWithType>& t, sf::Vector2f pos);
 	~Projectile();
 public:
 	void Draw(int syncImageCount, sf::RenderWindow* w);
+	void Move();
 };
 
 #endif // EVENTS_H

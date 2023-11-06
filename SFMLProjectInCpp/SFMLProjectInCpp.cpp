@@ -15,7 +15,7 @@ int main()
 	shape.setFillColor(sf::Color::Green);
 	Game game(&window);
 	//window.setFramerateLimit(144);
-	sf::Clock clock;
+	
 	/*sf::Text text;
 	text.setCharacterSize(24);
 

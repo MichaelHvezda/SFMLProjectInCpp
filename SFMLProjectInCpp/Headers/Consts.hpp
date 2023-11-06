@@ -8,9 +8,11 @@ namespace Consts {
 
 
 	static const int TEXTURE_SIZE = 32;
-	static const float MOVE_SIZE = 0.05f;
+	static const float MOVE_SIZE = 0.5f;
 
-	static const int ANIMATE_EVERY_XFRAME = 64;
+	static const float ANIMATE_EVERY_X_SECOUND = 1/8.f;
+	static const float MOVE_EVERY_X_SECOUND = 1/60.f;
+	static const float COLDDOWN_TIME_SECOUND = 2.f;
 
 	enum class Direction {
 		None = 0, Left, Right, Up, Down

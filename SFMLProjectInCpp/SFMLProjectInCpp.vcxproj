@@ -107,6 +107,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\SFML-2.6.1\include;$(SolutionDir)\SFMLProjectInCpp\Headers</AdditionalIncludeDirectories>
       <AdditionalHeaderUnitDependencies>
       </AdditionalHeaderUnitDependencies>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\Animation.cpp" />
     <ClCompile Include="Events\Events.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Events\KeyPress.cpp" />
@@ -142,6 +144,7 @@
     <ClCompile Include="Graphics\Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Animation.hpp" />
     <ClInclude Include="Headers\Consts.hpp" />
     <ClInclude Include="Headers\Events.hpp" />
     <ClInclude Include="Headers\Game.hpp" />

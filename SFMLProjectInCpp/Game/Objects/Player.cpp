@@ -18,11 +18,10 @@ Player::~Player()
 {
 }
 
-void Player::Draw(int syncImageCount, sf::RenderWindow* w) {
-
-	int framePos = ((syncImageCount + 1) % (textureCount * Consts::ANIMATE_EVERY_XFRAME)) / Consts::ANIMATE_EVERY_XFRAME;
-
-	sprite->setTextureRect(sf::IntRect(framePos * Consts::TEXTURE_SIZE, 0, Consts::TEXTURE_SIZE, Consts::TEXTURE_SIZE));
+void Player::Draw(int frameAnimation, sf::RenderWindow* w)
+{
+	int animation = frameAnimation % textureCount;
+	sprite->setTextureRect(sf::IntRect(animation * Consts::TEXTURE_SIZE, 0, Consts::TEXTURE_SIZE, Consts::TEXTURE_SIZE));
 
 	w->draw(*sprite);
 }
@@ -34,7 +33,8 @@ void Player::SetDefaultPosition(sf::RenderWindow* w) {
 }
 
 
-void Player::Move() {
+void Player::Move()
+{
 
 	//if (drawCount % 32 == 0) {
 	//	return;
