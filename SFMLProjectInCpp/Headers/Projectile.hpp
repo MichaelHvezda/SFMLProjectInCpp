@@ -12,13 +12,14 @@ class Projectile
 {
 public:
 	std::unique_ptr<sf::Sprite> sprite;
-	std::shared_ptr<TextureWithType> texture;
+	std::shared_ptr<TextureWithProperties> texture;
 	sf::Vector2f direction;
 	int textureCount = 0;
 	int healt = 1;
-	sf::Vector2u vectorSize;
+	bool isAlive = true;
+	//sf::Vector2u vectorSize;
 public:
-	Projectile(std::shared_ptr<TextureWithType>& t, sf::Vector2f pos);
+	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos);
 	~Projectile();
 public:
 	void Draw(int syncImageCount, sf::RenderWindow* w);

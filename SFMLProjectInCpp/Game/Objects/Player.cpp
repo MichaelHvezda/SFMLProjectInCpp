@@ -1,6 +1,6 @@
 #include <Player.hpp>
 
-Player::Player(std::shared_ptr<TextureWithType>& t)
+Player::Player(std::shared_ptr<TextureWithProperties>& t)
 {
 	texture = t;
 	sprite = std::make_unique<sf::Sprite>();
@@ -10,8 +10,10 @@ Player::Player(std::shared_ptr<TextureWithType>& t)
 	//sprite->setTextureRect(sf::IntRect(0, 0, Consts::TEXTURE_SIZE, Consts::TEXTURE_SIZE));
 	//sprite->setTextureRect(sf::IntRect(64, 0, 32, 32));
 
-	vectorSize = sprite->getTexture()->getSize();
-	textureCount = vectorSize.x / Consts::TEXTURE_SIZE;
+	//vectorSize = sprite->getTexture()->getSize();
+	sprite->setOrigin(sf::Vector2f(texture->props.sizeX / 2.f, 0.f));
+	//textureCount = ; /*vectorSize.x / Consts::TEXTURE_SIZE;*/
+	textureCount = texture->props.animationsCount;
 }
 
 Player::~Player()
@@ -21,7 +23,7 @@ Player::~Player()
 void Player::Draw(int frameAnimation, sf::RenderWindow* w)
 {
 	int animation = frameAnimation % textureCount;
-	sprite->setTextureRect(sf::IntRect(animation * Consts::TEXTURE_SIZE, 0, Consts::TEXTURE_SIZE, Consts::TEXTURE_SIZE));
+	sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
 
 	w->draw(*sprite);
 }
@@ -29,7 +31,7 @@ void Player::Draw(int frameAnimation, sf::RenderWindow* w)
 void Player::SetDefaultPosition(sf::RenderWindow* w) {
 	auto size = w->getSize();
 
-	sprite->setPosition(sf::Vector2f(size.x / 2, size.y - Consts::TEXTURE_SIZE));
+	sprite->setPosition(sf::Vector2f(size.x / 2.f, static_cast<float>(size.y - texture->props.sizeY)));
 }
 
 

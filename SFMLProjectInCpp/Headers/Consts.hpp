@@ -6,12 +6,11 @@
 namespace Consts {
 	//static const std::string TEXTURE_ROCKET = "Textures/RocketSpite.png";
 
+	static const int TEXTURE_ANIMATIONS = 4;
+	static const float MOVE_SIZE = 1.0f;
 
-	static const int TEXTURE_SIZE = 32;
-	static const float MOVE_SIZE = 0.5f;
-
-	static const float ANIMATE_EVERY_X_SECOUND = 1/8.f;
-	static const float MOVE_EVERY_X_SECOUND = 1/60.f;
+	static const float ANIMATE_EVERY_X_SECOUND = 1 / 8.f;
+	static const float MOVE_EVERY_X_SECOUND = 1 / 60.f;
 	static const float COLDDOWN_TIME_SECOUND = 2.f;
 
 	enum class Direction {
@@ -23,7 +22,7 @@ namespace Consts {
 	};
 
 	enum class GraphicObjectType {
-		Projectile,Enemy,Player
+		Projectile, Enemy, Player, PlayerProjectile
 	};
 
 	template<typename T>
@@ -36,14 +35,30 @@ namespace Consts {
 		//KeyMap(sf::Keyboard::Key k, T a): keys(k),action(a) {}
 	};
 
+	struct TextureProperies {
+	public:
+		GraphicObjectType type;
+		int sizeX;
+		int sizeY;
+		int animationsCount;
+		bool haveDeadAnimation;
+		int level;
+	public:
+		TextureProperies(GraphicObjectType t, const int sX, const int sY, const int animatedC)
+			: type(t), sizeX(sX), sizeY(sY), animationsCount(animatedC), haveDeadAnimation(false), level(1) {}
+		TextureProperies(GraphicObjectType t, const int sX, const int sY, const int animatedC, const bool deadA, int l)
+			: type(t), sizeX(sX), sizeY(sY), animationsCount(animatedC), haveDeadAnimation(deadA), level(l) {}
+	};
+
 	struct TextureFilepath {
 	public:
 		const std::string path;
-		GraphicObjectType type;
+		TextureProperies props;
 	public:
-		TextureFilepath(std::string p, GraphicObjectType t) : path(p), type(t) {}
+		TextureFilepath(std::string p, TextureProperies properies) : path(p), props(properies) {}
 		//KeyMap(sf::Keyboard::Key k, T a): keys(k),action(a) {}
 	};
+
 
 	static const std::vector<KeyMap<Direction>> KeyDirectionMap = {
 		{ { sf::Keyboard::Up,sf::Keyboard::W }, Direction::Up },
@@ -57,8 +72,8 @@ namespace Consts {
 	};
 
 	static const std::vector<TextureFilepath> TexturesToLoad = {
-		{  "Textures/RocketSpite.png", GraphicObjectType::Player },
-		{  "Textures/Projectil1.png", GraphicObjectType::Projectile },
+		{  "Textures/RocketSpite.png", { GraphicObjectType::Player, 32, 32, TEXTURE_ANIMATIONS}},
+		{  "Textures/Projectil1.png", { GraphicObjectType::PlayerProjectile, 8, 32, TEXTURE_ANIMATIONS,true,1 }},
 	};
 
 }

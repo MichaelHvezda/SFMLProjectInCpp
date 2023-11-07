@@ -6,15 +6,15 @@
 #include <Logger.hpp>
 #include <Consts.hpp>
 
-struct TextureWithType
+struct TextureWithProperties
 {
 public:
 	sf::Texture texture;
-	Consts::GraphicObjectType type;
+	Consts::TextureProperies props;
 public:
-	TextureWithType(Consts::GraphicObjectType t) : type(t) {};
+	TextureWithProperties(Consts::TextureProperies p) : props(p) {};
 };
 
-void LoadTexture(const std::shared_ptr<TextureWithType>& texture, const std::string& file);
+void LoadTexture(const std::shared_ptr<TextureWithProperties>& texture, const std::string& file);
 
 #endif // EVENTS_H

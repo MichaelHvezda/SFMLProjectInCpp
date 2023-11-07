@@ -4,18 +4,22 @@ Game::Game(sf::RenderWindow* w) {
 
 	window = w;
 	int i = 0;
+	try {
+		for (const auto& tex : Consts::TexturesToLoad) {
+			textures.push_back(std::make_shared<TextureWithProperties>(tex.props));
+			LoadTexture(textures[i], tex.path);
+			//player = std::make_unique<Player>(textures[0]);
 
-	for (const auto& tex : Consts::TexturesToLoad) {
-		textures.push_back(std::make_shared<TextureWithType>(tex.type));
-		LoadTexture(textures[i], tex.path);
-
-		player = std::make_unique<Player>(textures[0]);
-
-		i++;
+			i++;
+		}
+	}
+	catch (std::exception& ex) {
+		LoggerEx(ex);
+		//throw ex;
 	}
 
 	for (auto& text : textures) {
-		if (text->type == Consts::GraphicObjectType::Player) {
+		if (text->props.type == Consts::GraphicObjectType::Player) {
 			player = std::make_unique<Player>(text);
 			break;
 		}
@@ -32,10 +36,13 @@ Game::~Game() {
 
 }
 
-void Game::Draw() {
+void Game::Update() {
 	/*for (const auto& sprite : Sprites) {
 		window->draw(*sprite);
 	}*/
+
+	ProcessEvents(window, this);
+
 	auto renderTime = clock.restart().asSeconds();
 	gameTime += renderTime;
 	if (player->actionColdDown > 0)
@@ -72,7 +79,7 @@ void Game::MakeActions() {
 		{
 		case Consts::Action::Shoot:
 			for (auto& text : textures) {
-				if (text->type == Consts::GraphicObjectType::Projectile) {
+				if (text->props.type == Consts::GraphicObjectType::PlayerProjectile) {
 					projectiles.push_back(std::make_unique<Projectile>(text, player->sprite->getPosition()));
 					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
 					break;

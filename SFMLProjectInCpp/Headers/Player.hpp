@@ -12,15 +12,15 @@ class Player
 {
 public:
 	std::unique_ptr<sf::Sprite> sprite;
-	std::shared_ptr<TextureWithType> texture;
-	std::vector<std::shared_ptr<TextureWithType>> otherTextures;
+	std::shared_ptr<TextureWithProperties> texture;
+	std::vector<std::shared_ptr<TextureWithProperties>> otherTextures;
 	std::vector<Consts::Direction> directions;
 	std::vector<Consts::Action> actions;
 	int textureCount = 0;
 	float actionColdDown = 0;
-	sf::Vector2u vectorSize;
+	//sf::Vector2u vectorSize;
 public:
-	Player(std::shared_ptr<TextureWithType>& t);
+	Player(std::shared_ptr<TextureWithProperties>& t);
 	~Player();
 public:
 	void Draw(int frameAnimation, sf::RenderWindow* w);

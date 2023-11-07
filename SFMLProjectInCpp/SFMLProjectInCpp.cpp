@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <Events.hpp>
 #include <Logger.hpp>
 #include <Game.hpp>
 
@@ -11,11 +10,11 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	//sf::CircleShape shape(100.f);
+	//shape.setFillColor(sf::Color::Green);
 	Game game(&window);
-	//window.setFramerateLimit(144);
-	
+	window.setFramerateLimit(144);
+
 	/*sf::Text text;
 	text.setCharacterSize(24);
 
@@ -35,10 +34,9 @@ int main()
 		////Logger("fps :", fps);
 		//text.setString(std::to_string(fps));
 
-		ProcessEvents(&window,&game);
 		window.clear();
 		//std::vector<Consts::Direction> directions;
-		game.Draw();
+		game.Update();
 		//window.draw(text);
 		//window.draw(shape);
 		window.display();

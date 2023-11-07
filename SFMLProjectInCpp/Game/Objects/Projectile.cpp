@@ -1,6 +1,6 @@
 #include <Projectile.hpp>
 
-Projectile::Projectile(std::shared_ptr<TextureWithType>& t, sf::Vector2f pos)
+Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos)
 {
 	texture = t;
 	sprite = std::make_unique<sf::Sprite>();
@@ -9,10 +9,11 @@ Projectile::Projectile(std::shared_ptr<TextureWithType>& t, sf::Vector2f pos)
 	//sprite->scale(sf::Vector2f(3.f, 3.f));
 	//sprite->setTextureRect(sf::IntRect(0, 0, Consts::TEXTURE_SIZE, Consts::TEXTURE_SIZE));
 	//sprite->setTextureRect(sf::IntRect(64, 0, 32, 32));
-	sprite->scale(sf::Vector2f(0.5f,0.5f));
+	sprite->setOrigin(sf::Vector2f(texture->props.sizeX / 2.f, 0.f));
+	sprite->scale(sf::Vector2f(0.5f, 0.5f));
 	sprite->setPosition(pos);
-	vectorSize = sprite->getTexture()->getSize();
-	textureCount = vectorSize.x / Consts::TEXTURE_SIZE;
+
+	textureCount = texture->props.animationsCount;
 	direction.y = -Consts::MOVE_SIZE;
 }
 Projectile::~Projectile()
@@ -27,7 +28,7 @@ void Projectile::Draw(int syncImageCount, sf::RenderWindow* w) {
 
 	int animation = syncImageCount % textureCount;
 
-	sprite->setTextureRect(sf::IntRect(animation * Consts::TEXTURE_SIZE, 0, Consts::TEXTURE_SIZE, Consts::TEXTURE_SIZE));
+	sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
 	w->draw(*sprite);
 
 }

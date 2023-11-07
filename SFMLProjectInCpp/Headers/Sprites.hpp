@@ -13,7 +13,7 @@ struct SpriteWithType
 	Consts::GraphicObjectType type;
 };
 
-void CreateSprite(const std::unique_ptr<sf::Sprite>& sprite, const std::shared_ptr<TextureWithType>& texture);
+void CreateSprite(const std::unique_ptr<sf::Sprite>& sprite, const std::shared_ptr<TextureWithProperties>& texture);
 
 
 #endif // EVENTS_H

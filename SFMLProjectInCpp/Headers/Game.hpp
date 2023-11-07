@@ -7,11 +7,12 @@
 #include <Textures.hpp>
 #include <Projectile.hpp>
 #include <Player.hpp>
+#include <Events.hpp>
 
 class Game {
 public:
 	//std::vector<std::unique_ptr<SpriteWithType>> sprites;
-	std::vector<std::shared_ptr<TextureWithType>> textures;
+	std::vector<std::shared_ptr<TextureWithProperties>> textures;
 	std::vector<std::unique_ptr<Projectile>> projectiles;
 	std::vector<std::unique_ptr<sf::Sprite>> enemies;
 	std::unique_ptr<Player> player;
@@ -23,7 +24,7 @@ public:
 	Game(sf::RenderWindow* w);
 	virtual ~Game();
 public:
-	void Draw();
+	void Update();
 	void MakeActions();
 
 private:
