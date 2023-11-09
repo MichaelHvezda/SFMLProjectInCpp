@@ -18,12 +18,13 @@ public:
 	std::vector<Consts::Action> actions;
 	int textureCount = 0;
 	float actionColdDown = 0;
+	float bornTime;
 	//sf::Vector2u vectorSize;
 public:
 	Player(std::shared_ptr<TextureWithProperties>& t);
 	~Player();
 public:
-	void Draw(int frameAnimation, sf::RenderWindow* w);
+	void Draw(float gameTime, sf::RenderWindow* w);
 	void SetDefaultPosition(sf::RenderWindow* w);
 	void Move();
 

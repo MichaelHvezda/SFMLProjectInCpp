@@ -17,12 +17,13 @@ public:
 	int textureCount = 0;
 	int healt = 1;
 	bool isAlive = true;
+	float bornTime;
 	//sf::Vector2u vectorSize;
 public:
-	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos);
+	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime);
 	~Projectile();
 public:
-	void Draw(int syncImageCount, sf::RenderWindow* w);
+	void Draw(float gameTime, sf::RenderWindow* w);
 	void Move();
 };
 

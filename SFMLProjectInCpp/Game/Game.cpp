@@ -37,10 +37,6 @@ Game::~Game() {
 }
 
 void Game::Update() {
-	/*for (const auto& sprite : Sprites) {
-		window->draw(*sprite);
-	}*/
-
 	ProcessEvents(window, this);
 
 	auto renderTime = clock.restart().asSeconds();
@@ -48,22 +44,26 @@ void Game::Update() {
 	if (player->actionColdDown > 0)
 		player->actionColdDown -= renderTime;
 
-	int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
+	//int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
 	int moveFrameCnt = (gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND;
 
 	if (moveFrameCount != moveFrameCnt)
 		player->Move();
-	player->Draw(animationPos, window);
+	player->Draw(gameTime, window);
 
 	for (const auto& proj : projectiles) {
+
 		if (moveFrameCount != moveFrameCnt)
 			proj->Move();
-		proj->Draw(animationPos, window);
-		if (IsInsideWindow(proj->sprite->getPosition())) {
+		proj->Draw(gameTime, window);
+
+		if (IsInsideWindow(proj->sprite->getPosition()) && proj->healt != 0) {
 			proj->healt = 0;
+			proj->bornTime = gameTime;
 		}
 	}
-	std::erase_if(projectiles, [](const std::unique_ptr<Projectile>& p) {return p->healt <= 0; });
+
+	std::erase_if(projectiles, [](const std::unique_ptr<Projectile>& p) {return p->isAlive == false; });
 
 	moveFrameCount = moveFrameCnt;
 	MakeActions();
@@ -80,7 +80,7 @@ void Game::MakeActions() {
 		case Consts::Action::Shoot:
 			for (auto& text : textures) {
 				if (text->props.type == Consts::GraphicObjectType::PlayerProjectile) {
-					projectiles.push_back(std::make_unique<Projectile>(text, player->sprite->getPosition()));
+					projectiles.push_back(std::make_unique<Projectile>(text, player->sprite->getPosition(), gameTime));
 					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
 					break;
 				}

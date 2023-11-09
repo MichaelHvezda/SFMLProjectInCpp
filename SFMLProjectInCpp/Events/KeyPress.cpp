@@ -42,7 +42,7 @@ void SetActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list) {
 	{
 		if (sf::Keyboard::isKeyPressed(key)) {
 
-			bool exist =false;
+			bool exist = false;
 
 			for (auto& dir : list) {
 				if (dir == keyMap.action) {

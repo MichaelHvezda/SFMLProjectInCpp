@@ -20,9 +20,10 @@ Player::~Player()
 {
 }
 
-void Player::Draw(int frameAnimation, sf::RenderWindow* w)
+void Player::Draw(float gameTime, sf::RenderWindow* w)
 {
-	int animation = frameAnimation % textureCount;
+	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
+	int animation = animationPos % textureCount;
 	sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
 
 	w->draw(*sprite);

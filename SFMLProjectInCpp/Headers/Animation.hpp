@@ -5,6 +5,6 @@
 #include <SFML/Graphics.hpp>
 
 
-void Animate();
+class Animation;
 
 #endif

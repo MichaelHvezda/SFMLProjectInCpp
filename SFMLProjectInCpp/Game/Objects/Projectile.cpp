@@ -1,7 +1,8 @@
 #include <Projectile.hpp>
 
-Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos)
+Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos,float gameTime)
 {
+	bornTime = gameTime;
 	texture = t;
 	sprite = std::make_unique<sf::Sprite>();
 	//LoadTexture(texture);
@@ -21,14 +22,23 @@ Projectile::~Projectile()
 }
 
 void Projectile::Move() {
-	sprite->move(direction);
+	if(healt > 0)
+		sprite->move(direction);
 }
 
-void Projectile::Draw(int syncImageCount, sf::RenderWindow* w) {
+void Projectile::Draw(float gameTime, sf::RenderWindow* w) {
 
-	int animation = syncImageCount % textureCount;
+	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
+	int animation = animationPos % textureCount;
 
-	sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
-	w->draw(*sprite);
+	if(healt > 0)
+		sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
+	else {
 
+		sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, texture->props.sizeY, texture->props.sizeX, texture->props.sizeY));
+		if (animationPos == textureCount)
+			isAlive = false;
+	}
+	if(isAlive)
+		w->draw(*sprite);
 }
