@@ -1,7 +1,8 @@
 #include <Events.hpp>
 
 
-void ProcessEvents(sf::RenderWindow* window, Game* game) {
+void ProcessEvents(sf::RenderWindow* window, Game* game)
+{
 
 	sf::Event event;
 	auto size = window->getSize();
@@ -47,7 +48,8 @@ void ProcessEvents(sf::RenderWindow* window, Game* game) {
 				game->player->sprite->scale(scaleX, scaleY);
 			}
 
-			for (auto& proj : game->projectiles) {
+			for (auto& proj : game->projectiles)
+			{
 				auto pos = proj->sprite->getPosition();
 				auto rateX = pos.x / static_cast<float>(size.x);
 				auto rateY = pos.y / static_cast<float>(size.y);
@@ -61,7 +63,6 @@ void ProcessEvents(sf::RenderWindow* window, Game* game) {
 
 			break;
 		}
-
 		// we don't process other types of events
 		default:
 			break;

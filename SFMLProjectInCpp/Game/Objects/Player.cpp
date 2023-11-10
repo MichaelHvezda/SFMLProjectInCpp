@@ -33,24 +33,28 @@ void Player::Draw(float gameTime, sf::RenderWindow* w)
 	auto winSize = w->getSize();
 
 	//std::cout << bounds.getPosition().x << " " << bounds.getPosition().y << std::endl;
-	if (bounds.getPosition().x < 0) {
+	if (bounds.getPosition().x < 0)
+	{
 		sf::Sprite spriteNew(*sprite);
 
 		spriteNew.move(winSize.x, 0.f);
 		w->draw(spriteNew);
 
-		if (bounds.getPosition().x + bounds.getSize().x > 0) {
+		if (bounds.getPosition().x + bounds.getSize().x > 0)
+		{
 			sprite->move(winSize.x, 0.f);
 			Logger("player relocated left");
 		}
 	}
-	if (bounds.getPosition().x + bounds.getSize().x > winSize.x) {
+	if (bounds.getPosition().x + bounds.getSize().x > winSize.x)
+	{
 		sf::Sprite spriteNew(*sprite);
 
 		spriteNew.move(-1.f * winSize.x, 0.f);
 		w->draw(spriteNew);
 
-		if (bounds.getPosition().x > winSize.x) {
+		if (bounds.getPosition().x > winSize.x)
+		{
 			sprite->move(-1.f * winSize.x, 0.f);
 			Logger("player relocated right");
 		}
@@ -59,10 +63,11 @@ void Player::Draw(float gameTime, sf::RenderWindow* w)
 	//if(bonds.contains(0,0))
 }
 
-void Player::SetDefaultPosition(sf::RenderWindow* w) {
+void Player::SetDefaultPosition(sf::RenderWindow* w)
+{
 	auto size = w->getSize();
 
-	sprite->setPosition(sf::Vector2f(size.x / 2.f, static_cast<float>(size.y - texture->props.sizeY - 1 )));
+	sprite->setPosition(sf::Vector2f(size.x / 2.f, static_cast<float>(size.y - texture->props.sizeY - 1)));
 }
 
 
@@ -100,7 +105,8 @@ void Player::Move(const sf::Vector2u& windowSize, sf::Vector2f scale)
 			break;
 		}
 	}
-	if (directions.size() > 1) {
+	if (directions.size() > 1)
+	{
 		vec /= 2.f;
 	}
 	auto bounds = sprite->getGlobalBounds();

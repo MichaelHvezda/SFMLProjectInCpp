@@ -1,6 +1,7 @@
 #include <Textures.hpp>
 
-void LoadTexture(const std::shared_ptr<TextureWithProperties>& texture, const std::string& file) {
+void LoadTexture(const std::shared_ptr<TextureWithProperties>& texture, const std::string& file)
+{
 	if (!texture->texture.loadFromFile(file))
 	{
 		Logger("Textures not found");

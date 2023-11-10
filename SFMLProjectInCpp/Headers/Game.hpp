@@ -9,7 +9,8 @@
 #include <Player.hpp>
 #include <Events.hpp>
 
-class Game {
+class Game
+{
 public:
 	//std::vector<std::unique_ptr<SpriteWithType>> sprites;
 	std::vector<std::shared_ptr<TextureWithProperties>> textures;

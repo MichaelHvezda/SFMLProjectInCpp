@@ -27,19 +27,22 @@ Projectile::~Projectile()
 {
 }
 
-void Projectile::Move() {
+void Projectile::Move()
+{
 	if(healt > 0)
 		sprite->move(direction);
 }
 
-void Projectile::Draw(float gameTime, sf::RenderWindow* w) {
+void Projectile::Draw(float gameTime, sf::RenderWindow* w)
+{
 
 	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
 	int animation = animationPos % textureCount;
 
 	if(healt > 0)
 		sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
-	else {
+	else
+	{
 
 		sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, texture->props.sizeY, texture->props.sizeX, texture->props.sizeY));
 		if (animationPos == textureCount)

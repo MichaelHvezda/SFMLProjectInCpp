@@ -15,20 +15,24 @@ namespace Consts {
 	static const float COLDDOWN_TIME_SECOUND = 1.f;
 	static const float PI = (atan(1) * 4);;
 
-	enum class Direction {
+	enum class Direction
+	{
 		None = 0, Left, Right, Up, Down
 	};
 
-	enum class Action {
+	enum class Action
+	{
 		None = 0, Shoot, Imortality
 	};
 
-	enum class GraphicObjectType {
+	enum class GraphicObjectType
+	{
 		Projectile, Enemy, Player, PlayerProjectile
 	};
 
 	template<typename T>
-	struct KeyMap {
+	struct KeyMap
+	{
 	public:
 		const std::vector<sf::Keyboard::Key> keys;
 		T action;
@@ -37,7 +41,8 @@ namespace Consts {
 		//KeyMap(sf::Keyboard::Key k, T a): keys(k),action(a) {}
 	};
 
-	struct TextureProperies {
+	struct TextureProperies
+	{
 	public:
 		GraphicObjectType type;
 		int sizeX;
@@ -52,7 +57,8 @@ namespace Consts {
 			: type(t), sizeX(sX), sizeY(sY), animationsCount(animatedC), haveDeadAnimation(deadA), level(l) {}
 	};
 
-	struct TextureFilepath {
+	struct TextureFilepath
+	{
 	public:
 		const std::string path;
 		TextureProperies props;
