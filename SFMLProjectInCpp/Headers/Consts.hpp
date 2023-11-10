@@ -3,15 +3,17 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <math.h>
 namespace Consts {
 	//static const std::string TEXTURE_ROCKET = "Textures/RocketSpite.png";
 
 	static const int TEXTURE_ANIMATIONS = 4;
 	static const float MOVE_SIZE = 2.0f;
 
-	static const float ANIMATE_EVERY_X_SECOUND = 1 / 1.f;
+	static const float ANIMATE_EVERY_X_SECOUND = 1 / 8.f;
 	static const float MOVE_EVERY_X_SECOUND = 1 / 60.f;
-	static const float COLDDOWN_TIME_SECOUND = 2.f;
+	static const float COLDDOWN_TIME_SECOUND = 1.f;
+	static const float PI = (atan(1) * 4);;
 
 	enum class Direction {
 		None = 0, Left, Right, Up, Down
@@ -74,6 +76,7 @@ namespace Consts {
 	static const std::vector<TextureFilepath> TexturesToLoad = {
 		{  "Textures/RocketSpite.png", { GraphicObjectType::Player, 32, 32, TEXTURE_ANIMATIONS}},
 		{  "Textures/Projectil1.png", { GraphicObjectType::PlayerProjectile, 8, 32, TEXTURE_ANIMATIONS,true,1 }},
+		{  "Textures/Projectil1.png", { GraphicObjectType::Projectile, 8, 32, TEXTURE_ANIMATIONS,true,1 }},
 	};
 
 }

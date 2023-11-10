@@ -1,6 +1,6 @@
 #include <Projectile.hpp>
 
-Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos,float gameTime)
+Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos,float gameTime, sf::Vector2f dir, sf::Vector2f scale)
 {
 	bornTime = gameTime;
 	texture = t;
@@ -10,12 +10,18 @@ Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f p
 	//sprite->scale(sf::Vector2f(3.f, 3.f));
 	//sprite->setTextureRect(sf::IntRect(0, 0, Consts::TEXTURE_SIZE, Consts::TEXTURE_SIZE));
 	//sprite->setTextureRect(sf::IntRect(64, 0, 32, 32));
-	sprite->setOrigin(sf::Vector2f(texture->props.sizeX / 2.f, 0.f));
-	sprite->scale(sf::Vector2f(0.5f, 0.5f));
+
+	auto pros = texture->props;
+	sprite->setOrigin(sf::Vector2f(pros.sizeX / 2.f, pros.sizeY / 2.f));
+	//sprite->scale();
 	sprite->setPosition(pos);
+	sprite->scale(sf::Vector2f(0.5f * scale.x, 0.5f * scale.y));
+
+	float rotation = (float)(atan2(dir.x, dir.y) / (2 * Consts::PI)) * 360.f - 180.f;
+	sprite->setRotation(rotation);
 
 	textureCount = texture->props.animationsCount;
-	direction.y = -Consts::MOVE_SIZE;
+	direction = dir;
 }
 Projectile::~Projectile()
 {

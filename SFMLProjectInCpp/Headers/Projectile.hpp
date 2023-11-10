@@ -15,12 +15,11 @@ public:
 	std::shared_ptr<TextureWithProperties> texture;
 	sf::Vector2f direction;
 	int textureCount = 0;
+	float bornTime;
 	int healt = 1;
 	bool isAlive = true;
-	float bornTime;
-	//sf::Vector2u vectorSize;
 public:
-	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime);
+	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale);
 	~Projectile();
 public:
 	void Draw(float gameTime, sf::RenderWindow* w);

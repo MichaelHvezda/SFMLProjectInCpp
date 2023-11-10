@@ -5,6 +5,13 @@
 #include <SFML/Graphics.hpp>
 
 
-class Animation;
+class Animation {
+public:
+	int textureCount = 0;
+	float bornTime;
+public:
+	Animation();
+	~Animation();
+};
 
 #endif

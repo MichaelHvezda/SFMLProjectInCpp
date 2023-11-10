@@ -2,6 +2,7 @@
 #define EVENTS_H
 
 #include <KeyPress.hpp>
+#include <iostream>
 
 void ProcessEvents(sf::RenderWindow* window, Game* game);
 

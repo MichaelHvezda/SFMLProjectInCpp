@@ -26,7 +26,7 @@ public:
 public:
 	void Draw(float gameTime, sf::RenderWindow* w);
 	void SetDefaultPosition(sf::RenderWindow* w);
-	void Move();
+	void Move(const sf::Vector2u& windowSize, sf::Vector2f scale);
 
 };
 

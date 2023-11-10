@@ -1,7 +1,7 @@
 #include <KeyPress.hpp>
 void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* game) {
 
-	Logger("Key pressed: ", event.key.scancode, event.key.code);
+	//Logger("Key pressed: ", event.key.scancode, event.key.code);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 		window->close();
@@ -21,7 +21,7 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 
 void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* game) {
 
-	Logger("Key released: ", event.key.scancode, event.key.code);
+	//Logger("Key released: ", event.key.scancode, event.key.code);
 
 	for (const auto& maps : Consts::KeyActionMap) {
 		EraseActions(maps, game->player->actions);
@@ -30,7 +30,6 @@ void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* 
 	//game->player.directions.clear();
 	for (const auto& maps : Consts::KeyDirectionMap) {
 		EraseActions(maps, game->player->directions);
-
 	}
 
 }

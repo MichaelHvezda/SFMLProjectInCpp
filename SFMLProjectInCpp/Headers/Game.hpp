@@ -13,11 +13,12 @@ class Game {
 public:
 	//std::vector<std::unique_ptr<SpriteWithType>> sprites;
 	std::vector<std::shared_ptr<TextureWithProperties>> textures;
-	std::vector<std::unique_ptr<Projectile>> projectiles;
+	std::vector<std::shared_ptr<Projectile>> projectiles;
 	std::vector<std::unique_ptr<sf::Sprite>> enemies;
 	std::unique_ptr<Player> player;
 	sf::RenderWindow* window;
 	sf::Clock clock;
+	sf::Vector2f scale;
 	float gameTime;
 	int moveFrameCount;
 public:
@@ -26,7 +27,7 @@ public:
 public:
 	void Update();
 	void MakeActions();
-
+	void Collisions();
 private:
 	bool IsInsideWindow(sf::Vector2f pos);
 };

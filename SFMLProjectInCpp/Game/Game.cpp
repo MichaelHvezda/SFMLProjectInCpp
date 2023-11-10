@@ -24,12 +24,20 @@ Game::Game(sf::RenderWindow* w) {
 			break;
 		}
 	}
-
+	scale.x = 1.0f;
+	scale.y = 1.0f;
 	//Textures.push_back(std::make_unique<sf::Texture>());
 	//Sprites.push_back(std::make_unique<sf::Sprite>());
 
 	//CreateSprite(Sprites[0], Textures[0]);
 	player->SetDefaultPosition(window);
+
+	for (auto& text : textures) {
+		if (text->props.type == Consts::GraphicObjectType::Projectile) {
+			projectiles.push_back(std::make_unique<Projectile>(text, sf::Vector2f(window->getSize().x/2.f,text->props.sizeY + 1), gameTime, sf::Vector2f(0.f, Consts::MOVE_SIZE),scale));
+			break;
+		}
+	}
 }
 
 Game::~Game() {
@@ -47,10 +55,6 @@ void Game::Update() {
 	//int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
 	int moveFrameCnt = (gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND;
 
-	if (moveFrameCount != moveFrameCnt)
-		player->Move();
-	player->Draw(gameTime, window);
-
 	for (const auto& proj : projectiles) {
 
 		if (moveFrameCount != moveFrameCnt)
@@ -58,15 +62,20 @@ void Game::Update() {
 		proj->Draw(gameTime, window);
 
 		if (IsInsideWindow(proj->sprite->getPosition()) && proj->healt != 0) {
-			proj->healt = 0;
+ 			proj->healt = 0;
 			proj->bornTime = gameTime;
 		}
 	}
 
-	std::erase_if(projectiles, [](const std::unique_ptr<Projectile>& p) {return p->isAlive == false; });
+	if (moveFrameCount != moveFrameCnt)
+		player->Move(window->getSize(),scale);
+	player->Draw(gameTime, window);
+
+	std::erase_if(projectiles, [](const std::shared_ptr<Projectile>& p) {return p->isAlive == false; });
 
 	moveFrameCount = moveFrameCnt;
 	MakeActions();
+	Collisions();
 }
 
 void Game::MakeActions() {
@@ -80,7 +89,7 @@ void Game::MakeActions() {
 		case Consts::Action::Shoot:
 			for (auto& text : textures) {
 				if (text->props.type == Consts::GraphicObjectType::PlayerProjectile) {
-					projectiles.push_back(std::make_unique<Projectile>(text, player->sprite->getPosition(), gameTime));
+					projectiles.push_back(std::make_shared<Projectile>(text, player->sprite->getPosition(), gameTime, sf::Vector2f(0.f*scale.x,-Consts::MOVE_SIZE * scale.y),scale));
 					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
 					break;
 				}
@@ -91,6 +100,15 @@ void Game::MakeActions() {
 		}
 	}
 	player->actions.clear();
+}
+
+void Game::Collisions() {
+	for (auto& projectile : projectiles)
+	{
+		if (projectile->sprite->getGlobalBounds().intersects(player->sprite->getGlobalBounds()) && projectile->texture->props.type != Consts::GraphicObjectType::PlayerProjectile) {
+			Logger("colision");
+		}
+	}
 }
 
 bool Game::IsInsideWindow(sf::Vector2f pos) {
