@@ -29,7 +29,7 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 		{
 			Logger("new width: ", event.size.width);
 			Logger("new height: ", event.size.height);
-			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+			sf::FloatRect visibleArea(0.f, 0.f, static_cast<float>(event.size.width), static_cast<float>(event.size.height));
 			window->setView(sf::View(visibleArea));
 
 			auto scaleX = event.size.width / static_cast<float>(size.x);

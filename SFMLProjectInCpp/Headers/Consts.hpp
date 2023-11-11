@@ -13,7 +13,7 @@ namespace Consts {
 	static const float ANIMATE_EVERY_X_SECOUND = 1 / 8.f;
 	static const float MOVE_EVERY_X_SECOUND = 1 / 60.f;
 	static const float COLDDOWN_TIME_SECOUND = 1.f;
-	static const float PI = (atan(1) * 4);;
+	static const float PI = static_cast<float>(atan(1) * 4.f);;
 
 	enum class Direction
 	{

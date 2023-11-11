@@ -19,6 +19,9 @@ public:
 	int textureCount = 0;
 	float actionColdDown = 0;
 	float bornTime;
+	float healt = 1;
+	float damage = 1;
+	bool isAlive = true;
 	//sf::Vector2u vectorSize;
 public:
 	Player(std::shared_ptr<TextureWithProperties>& t);

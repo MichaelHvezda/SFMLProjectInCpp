@@ -16,7 +16,8 @@ public:
 	sf::Vector2f direction;
 	int textureCount = 0;
 	float bornTime;
-	int healt = 1;
+	float healt = 1;
+	float damage = 1;
 	bool isAlive = true;
 public:
 	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale);

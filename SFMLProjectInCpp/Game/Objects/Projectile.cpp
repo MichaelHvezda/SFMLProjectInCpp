@@ -1,6 +1,6 @@
 #include <Projectile.hpp>
 
-Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos,float gameTime, sf::Vector2f dir, sf::Vector2f scale)
+Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale)
 {
 	bornTime = gameTime;
 	texture = t;
@@ -29,7 +29,7 @@ Projectile::~Projectile()
 
 void Projectile::Move()
 {
-	if(healt > 0)
+	if (healt > 0)
 		sprite->move(direction);
 }
 
@@ -39,15 +39,27 @@ void Projectile::Draw(float gameTime, sf::RenderWindow* w)
 	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
 	int animation = animationPos % textureCount;
 
-	if(healt > 0)
+
+	if (healt > 0)
+	{
 		sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
+	}
 	else
 	{
-
+		if (!texture->props.haveDeadAnimation)
+		{
+			isAlive = false;
+			return;
+		}
 		sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, texture->props.sizeY, texture->props.sizeX, texture->props.sizeY));
 		if (animationPos == textureCount)
+		{
 			isAlive = false;
+			return;
+		}
 	}
-	if(isAlive)
+
+	if (isAlive) {
 		w->draw(*sprite);
+	}
 }

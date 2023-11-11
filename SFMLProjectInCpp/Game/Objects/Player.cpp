@@ -26,8 +26,10 @@ void Player::Draw(float gameTime, sf::RenderWindow* w)
 	int animation = animationPos % textureCount;
 	sprite->setTextureRect(sf::IntRect(animation * texture->props.sizeX, 0, texture->props.sizeX, texture->props.sizeY));
 
-	w->draw(*sprite);
-
+	if (isAlive)
+	{
+		w->draw(*sprite);
+	}
 
 	auto bounds = sprite->getGlobalBounds();
 	auto winSize = w->getSize();
@@ -37,12 +39,12 @@ void Player::Draw(float gameTime, sf::RenderWindow* w)
 	{
 		sf::Sprite spriteNew(*sprite);
 
-		spriteNew.move(winSize.x, 0.f);
+		spriteNew.move(static_cast<float>(winSize.x), 0.f);
 		w->draw(spriteNew);
 
 		if (bounds.getPosition().x + bounds.getSize().x > 0)
 		{
-			sprite->move(winSize.x, 0.f);
+			sprite->move(static_cast<float>(winSize.x), 0.f);
 			Logger("player relocated left");
 		}
 	}
@@ -114,6 +116,6 @@ void Player::Move(const sf::Vector2u& windowSize, sf::Vector2f scale)
 	//if (newPos)
 	//	Logger("bonds");
 
-	if (newPos.y > 0 && newPos.y + bounds.getSize().y < windowSize.y)
+	if (newPos.y > 0 && newPos.y + bounds.getSize().y < windowSize.y && healt > 0)
 		sprite->move(vec);
 }
