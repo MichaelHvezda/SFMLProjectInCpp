@@ -25,6 +25,15 @@
     <Filter Include="Source Files\Game\Objects">
       <UniqueIdentifier>{9aae4363-d763-4f94-a5ec-f07514bcb33d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{6a32909c-d8fa-4e60-beca-da99e661b765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{7684761d-90f9-4c29-a987-466fed40b1d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\DLLs">
+      <UniqueIdentifier>{e28e3e56-a32a-4bfb-873e-cf19f3511836}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SFMLProjectInCpp.cpp">
@@ -86,5 +95,59 @@
     <ClInclude Include="Headers\Animation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sfml-window-d-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="openal32.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-audio-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-audio-d-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-graphics-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-graphics-d-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-network-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-network-d-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-system-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-system-d-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="sfml-window-2.dll">
+      <Filter>Resource Files\DLLs</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\Projectil1.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\Projectil1Old.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\rocket.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\RocketSpite.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\arial.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>
