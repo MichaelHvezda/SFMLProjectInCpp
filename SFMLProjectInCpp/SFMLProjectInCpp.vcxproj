@@ -146,6 +146,7 @@
     <ClCompile Include="Events\KeyPress.cpp" />
     <ClCompile Include="Game\Objects\Player.cpp" />
     <ClCompile Include="Game\Objects\Projectile.cpp" />
+    <ClCompile Include="Game\Menu.cpp" />
     <ClCompile Include="SFMLProjectInCpp.cpp" />
     <ClCompile Include="Graphics\Sprites.cpp" />
     <ClCompile Include="Graphics\Textures.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Headers\Textures.hpp" />
     <ClInclude Include="Headers\Player.hpp" />
     <ClInclude Include="Headers\Projectile.hpp" />
+    <ClInclude Include="Headers\Menu.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="openal32.dll" />

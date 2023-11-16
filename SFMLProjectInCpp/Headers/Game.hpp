@@ -8,6 +8,7 @@
 #include <Projectile.hpp>
 #include <Player.hpp>
 #include <Events.hpp>
+#include <Menu.hpp>
 
 class Game
 {
@@ -18,6 +19,7 @@ public:
 	std::vector<std::unique_ptr<sf::Sprite>> enemies;
 	std::unique_ptr<Player> player;
 	sf::RenderWindow* window;
+	std::unique_ptr<Menu> menu;
 	sf::Clock clock;
 	sf::Vector2f scale;
 	float gameTime;

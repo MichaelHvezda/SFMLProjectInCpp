@@ -61,6 +61,7 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 				proj->direction.y *= scaleY;
 			}
 
+
 			break;
 		}
 		// we don't process other types of events

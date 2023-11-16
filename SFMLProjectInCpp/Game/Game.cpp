@@ -1,7 +1,7 @@
 #include <Game.hpp>
 
-Game::Game(sf::RenderWindow* w) {
-
+Game::Game(sf::RenderWindow* w)
+{
 	window = w;
 	int i = 0;
 	try
@@ -44,6 +44,8 @@ Game::Game(sf::RenderWindow* w) {
 			break;
 		}
 	}
+
+	menu = std::make_unique<Menu>(window->getSize());
 }
 
 Game::~Game()
@@ -54,6 +56,11 @@ Game::~Game()
 void Game::Update()
 {
 	ProcessEvents(window, this);
+
+	if (menu->isOpen) {
+		menu->Draw(window);
+		return;
+	}
 
 	auto renderTime = clock.restart().asSeconds();
 	gameTime += renderTime;
