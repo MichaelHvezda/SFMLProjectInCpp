@@ -34,6 +34,15 @@
     <Filter Include="Resource Files\DLLs">
       <UniqueIdentifier>{e28e3e56-a32a-4bfb-873e-cf19f3511836}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{6a11b41a-0402-49f9-b9e3-e25d8787fb21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Menu">
+      <UniqueIdentifier>{d71d5496-9ae0-446f-b13e-9a0e88c4a358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Menu">
+      <UniqueIdentifier>{1c1dfe6a-d00f-42c2-8858-07965405ba68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SFMLProjectInCpp.cpp">
@@ -63,8 +72,11 @@
     <ClCompile Include="Graphics\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Menu.cpp">
-      <Filter>Source Files\Game</Filter>
+    <ClCompile Include="Game\Menu\Menu.cpp">
+      <Filter>Source Files\Game\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Button.cpp">
+      <Filter>Source Files\Game\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +113,9 @@
     <ClInclude Include="Headers\Menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Button.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="sfml-window-d-2.dll">
@@ -135,6 +150,12 @@
     </None>
     <None Include="sfml-window-2.dll">
       <Filter>Resource Files\DLLs</Filter>
+    </None>
+    <None Include="Shaders\Menu\Selected.vert">
+      <Filter>Resource Files\Shaders\Menu</Filter>
+    </None>
+    <None Include="Shaders\Menu\Selected.frag">
+      <Filter>Resource Files\Shaders\Menu</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

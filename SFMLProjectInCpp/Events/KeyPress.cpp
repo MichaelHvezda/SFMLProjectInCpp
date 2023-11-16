@@ -41,6 +41,21 @@ void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* 
 
 }
 
+void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* game)
+{
+	if (game->menu->isOpen)
+	{
+		/*auto mousePos = sf::Mouse::getPosition();
+		auto mausCords = window->mapPixelToCoords(mousePos);
+		auto mausPix = window->mapCoordsToPixel(sf::Vector2f(mausCords.x, mausCords.y));
+		Logger("mousePos:", mousePos.x, mousePos.y);
+		Logger("mausCords:", mausCords.x,mausCords.y);
+		Logger("mausPix:", mausPix.x, mausPix.y);*/
+		//Logger("move:", event.mouseMove.x, event.mouseMove.y);
+		game->menu->SetActive(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
+	}
+}
+
 
 template<typename T>
 void SetActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list)

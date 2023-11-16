@@ -2,9 +2,7 @@
 #define MENU_H
 
 
-#include <SFML/Graphics.hpp>
-#include <Logger.hpp>
-#include <Vector>
+#include <Button.hpp>
 
 class Menu
 {
@@ -12,14 +10,16 @@ public:
 	bool isOpen;
 public:
 	void Draw(sf::RenderWindow* window);
-	void Resize(sf::Vector2u size, sf::Vector2f scale);
+	void Resize(sf::Vector2f size, sf::Vector2f scale);
+	void SetActive(sf::Vector2i mousePos);
 public:
 	Menu(sf::Vector2u size);
 	~Menu();
 
 private:
-	std::vector<sf::Text> text;
+	std::vector<std::unique_ptr<Button>> buttons;
 	sf::Font font;
+	sf::Shader shader;
 };
 
 

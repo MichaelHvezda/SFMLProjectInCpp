@@ -14,6 +14,12 @@ int main()
 	//shape.setFillColor(sf::Color::Green);
 	Game game(&window);
 	window.setFramerateLimit(144);
+	//sf::Texture texture;
+	//sf::Sprite sprite;
+	//sf::Shader shader;
+	//texture.create(200, 100);
+	//sprite.setTexture(texture);
+	//shader.loadFromFile("Shaders/Menu/Selected.vert", "Shaders/Menu/Selected.frag");
 
 	/*sf::Text text;
 	text.setCharacterSize(24);
@@ -37,6 +43,8 @@ int main()
 		window.clear();
 		//std::vector<Consts::Direction> directions;
 		game.Update();
+
+		//window.draw(sprite, &shader);
 		//window.draw(text);
 		//window.draw(shape);
 		window.display();
