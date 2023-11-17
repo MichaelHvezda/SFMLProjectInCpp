@@ -28,6 +28,12 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 		case sf::Event::MouseMoved:
 			ProcessMouseMoved(window, event, game);
 			break;
+		case sf::Event::MouseButtonPressed:
+			ProcessMousePressed(window, event, game);
+			break;
+		case sf::Event::MouseButtonReleased:
+			ProcessMouseReleased(window, event, game);
+			break;
 
 		case sf::Event::Resized:
 		{
@@ -65,7 +71,7 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 				proj->direction.y *= scaleY;
 			}
 
-			game->menu->Resize(visibleArea.getSize(), sf::Vector2f(scaleX, scaleY));
+			game->menu->Resize(sf::Vector2f(event.size.width, event.size.height), sf::Vector2f(scaleX, scaleY));
 
 			break;
 		}

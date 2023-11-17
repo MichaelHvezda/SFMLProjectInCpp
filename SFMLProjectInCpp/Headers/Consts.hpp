@@ -1,8 +1,10 @@
+#pragma once
 #ifndef CONSTS_H
 #define CONSTS_H
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
+//#include <Button.hpp>
 #include <math.h>
 namespace Consts {
 	//static const std::string TEXTURE_ROCKET = "Textures/RocketSpite.png";
@@ -30,6 +32,15 @@ namespace Consts {
 		Projectile, Enemy, Player, PlayerProjectile
 	};
 
+	enum class MenuPlace
+	{
+		MainMenu, Credits, Options
+	};
+	enum class MenuButtonType
+	{
+		Back, Play, Exit, Options, Credits
+	};
+
 	template<typename T>
 	struct KeyMap
 	{
@@ -50,11 +61,11 @@ namespace Consts {
 		int animationsCount;
 		bool haveDeadAnimation;
 		int level;
-	public:
-		TextureProperies(GraphicObjectType t, const int sX, const int sY, const int animatedC)
-			: type(t), sizeX(sX), sizeY(sY), animationsCount(animatedC), haveDeadAnimation(false), level(1) {}
-		TextureProperies(GraphicObjectType t, const int sX, const int sY, const int animatedC, const bool deadA, int l)
-			: type(t), sizeX(sX), sizeY(sY), animationsCount(animatedC), haveDeadAnimation(deadA), level(l) {}
+		/*public:
+			TextureProperies(GraphicObjectType t, const int sX, const int sY, const int animatedC)
+				: type(t), sizeX(sX), sizeY(sY), animationsCount(animatedC), haveDeadAnimation(false), level(1) {}
+			TextureProperies(GraphicObjectType t, const int sX, const int sY, const int animatedC, const bool deadA, int l)
+				: type(t), sizeX(sX), sizeY(sY), animationsCount(animatedC), haveDeadAnimation(deadA), level(l) {}*/
 	};
 
 	struct TextureFilepath
@@ -62,9 +73,9 @@ namespace Consts {
 	public:
 		const std::string path;
 		TextureProperies props;
-	public:
-		TextureFilepath(std::string p, TextureProperies properies) : path(p), props(properies) {}
-		//KeyMap(sf::Keyboard::Key k, T a): keys(k),action(a) {}
+		//public:
+			//TextureFilepath(std::string p, TextureProperies properies) : path(p), props(properies) {}
+			//KeyMap(sf::Keyboard::Key k, T a): keys(k),action(a) {}
 	};
 
 
@@ -80,9 +91,9 @@ namespace Consts {
 	};
 
 	static const std::vector<TextureFilepath> TexturesToLoad = {
-		{  "Textures/RocketSpite.png", { GraphicObjectType::Player, 32, 32, TEXTURE_ANIMATIONS}},
-		{  "Textures/Projectil1.png", { GraphicObjectType::PlayerProjectile, 8, 32, TEXTURE_ANIMATIONS,true,1 }},
-		{  "Textures/Projectil1.png", { GraphicObjectType::Projectile, 8, 32, TEXTURE_ANIMATIONS,true,1 }},
+		{  "Textures/RocketSpite.png", { GraphicObjectType::Player, 32, 32, TEXTURE_ANIMATIONS, false, 1}},
+		{  "Textures/Projectil1.png", { GraphicObjectType::PlayerProjectile, 8, 32, TEXTURE_ANIMATIONS,true, 1 }},
+		{  "Textures/Projectil1.png", { GraphicObjectType::Projectile, 8, 32, TEXTURE_ANIMATIONS, true, 1 }},
 	};
 
 }

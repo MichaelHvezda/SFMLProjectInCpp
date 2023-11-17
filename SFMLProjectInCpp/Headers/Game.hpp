@@ -1,3 +1,4 @@
+#pragma once
 #ifndef GAME_H
 #define GAME_H
 
@@ -24,6 +25,7 @@ public:
 	sf::Vector2f scale;
 	float gameTime;
 	int moveFrameCount;
+	bool isGameStart;
 public:
 	Game(sf::RenderWindow* w);
 	virtual ~Game();
@@ -33,6 +35,8 @@ public:
 	void Collisions();
 private:
 	bool IsInsideWindow(sf::Vector2f pos);
+	void UpdateGame();
+	void UpdateMenu();
 };
 
 #endif // EVENTS_H

@@ -57,16 +57,56 @@ void Game::Update()
 {
 	ProcessEvents(window, this);
 
-	if (menu->isOpen) {
-		menu->Draw(window);
-		return;
+	//always reset time
+	auto renderTime = clock.restart().asSeconds();
+
+	if (!menu->isOpen) {
+		gameTime += renderTime;
+		if (player->actionColdDown > 0)
+			player->actionColdDown -= renderTime;
 	}
 
-	auto renderTime = clock.restart().asSeconds();
-	gameTime += renderTime;
-	if (player->actionColdDown > 0)
-		player->actionColdDown -= renderTime;
 
+	if (isGameStart) {
+		UpdateGame();
+	}
+
+	if (menu->isOpen) {
+		UpdateMenu();
+	}
+}
+
+void Game::MakeActions()
+{
+	for (const auto& act : player->actions)
+	{
+		if (player->actionColdDown > 0.f)
+		{
+			return;
+		}
+		switch (act)
+		{
+		case Consts::Action::Shoot:
+			for (auto& text : textures)
+			{
+				if (text->props.type == Consts::GraphicObjectType::PlayerProjectile)
+				{
+					projectiles.push_back(std::make_shared<Projectile>(text, player->sprite->getPosition(), gameTime, sf::Vector2f(0.f * scale.x, -Consts::MOVE_SIZE * scale.y), scale));
+					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
+					break;
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	player->actions.clear();
+}
+
+
+void Game::UpdateGame()
+{
 	//int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
 	int moveFrameCnt = static_cast<int>((gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND);
 
@@ -99,34 +139,27 @@ void Game::Update()
 	MakeActions();
 	Collisions();
 }
-
-void Game::MakeActions()
+void Game::UpdateMenu()
 {
-	for (const auto& act : player->actions)
-	{
-		if (player->actionColdDown > 0.f)
-		{
-			return;
-		}
-		switch (act)
-		{
-		case Consts::Action::Shoot:
-			for (auto& text : textures)
-			{
-				if (text->props.type == Consts::GraphicObjectType::PlayerProjectile)
-				{
-					projectiles.push_back(std::make_shared<Projectile>(text, player->sprite->getPosition(), gameTime, sf::Vector2f(0.f * scale.x, -Consts::MOVE_SIZE * scale.y), scale));
-					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
-					break;
-				}
-			}
-			break;
-		default:
-			break;
-		}
-	}
-	player->actions.clear();
+	auto viewSize = window->getView().getSize();
+	auto col = sf::Color(0, 0, 0, 200);
+
+	sf::VertexArray lineStrip(sf::TriangleStrip, 4);
+	lineStrip[0].position = sf::Vector2f(viewSize.x, 0.f);
+	lineStrip[0].color = col;
+
+	lineStrip[1].position = sf::Vector2f(viewSize.x, viewSize.y);
+	lineStrip[1].color = col;
+
+	lineStrip[2].position = sf::Vector2f(0.f, 0.f);
+	lineStrip[2].color = col;
+
+	lineStrip[3].position = sf::Vector2f(0.f, viewSize.y);
+	lineStrip[3].color = col;
+	window->draw(lineStrip);
+	menu->Draw(window);
 }
+
 
 void Game::Collisions()
 {

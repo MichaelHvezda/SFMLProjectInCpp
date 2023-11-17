@@ -1,3 +1,4 @@
+#pragma once
 #ifndef BUTTON_H
 #define BUTTON_H
 
@@ -6,6 +7,8 @@
 #include <Logger.hpp>
 #include <Vector>
 #include <string>
+#include <Consts.hpp>
+class Game;
 
 class Button
 {
@@ -16,7 +19,8 @@ public:
 	void Resize(sf::Vector2f position, sf::Vector2f scale);
 	void SetPosition(float x, float y);
 	void SetActive(sf::Vector2i mousePos);
-	sf::Vector2f GetSize();
+	bool ClickInside(sf::Vector2i mousePos);
+	sf::Vector2f GetPosition();
 public:
 	Button(sf::Vector2f size, sf::Font& font, std::string text);
 	~Button();
@@ -25,4 +29,13 @@ private:
 	sf::Sprite sprite;
 	sf::Texture texture;
 };
+
+struct ButtonWithType
+{
+public:
+	Button btn;
+	Consts::MenuPlace place;
+	Consts::MenuButtonType type;
+};
+
 #endif

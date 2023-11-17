@@ -10,6 +10,13 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 		Logger("window close by ESCAPE key pressed");
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		game->menu->isOpen = !game->menu->isOpen;
+		game->isGameStart = true;
+		Logger("window close by ESCAPE key pressed");
+	}
+
 	//game->player.directions.clear();
 	for (const auto& maps : Consts::KeyActionMap)
 	{
@@ -55,7 +62,22 @@ void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* g
 		game->menu->SetActive(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 	}
 }
+void ProcessMousePressed(sf::RenderWindow* window, const sf::Event& event, Game* game)
+{
 
+	if (!game->menu->isClicked && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && game->menu->isOpen)
+	{
+		game->menu->isClicked = true;
+		game->menu->SetPressed(window, game, sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+	}
+}
+void ProcessMouseReleased(sf::RenderWindow* window, const sf::Event& event, Game* game)
+{
+	if (game->menu->isClicked)
+	{
+		game->menu->isClicked = false;
+	}
+}
 
 template<typename T>
 void SetActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list)

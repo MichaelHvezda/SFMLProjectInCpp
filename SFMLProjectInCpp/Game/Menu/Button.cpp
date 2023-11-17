@@ -31,12 +31,22 @@ void Button::SetPosition(float x, float y)
 void Button::SetActive(sf::Vector2i mousePos)
 {
 	auto bound = sprite.getGlobalBounds();
-	if (bound.contains(mousePos.x, mousePos.y))
+	if (bound.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		isSelected = true;
 		return;
 	}
 	isSelected = false;
+}
+
+bool Button::ClickInside(sf::Vector2i mousePos)
+{
+	auto bound = sprite.getGlobalBounds();
+	if (bound.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		return true;
+	}
+	return false;
 }
 
 void Button::Draw(sf::RenderWindow* window, sf::Shader* selectedShader)
@@ -66,11 +76,10 @@ void Button::Resize(sf::Vector2f position, sf::Vector2f scale)
 	sprite.scale(scale);
 	sprite.setPosition(position);
 
-	auto spritepos = sprite.getOrigin();
 }
-sf::Vector2f Button::GetSize()
+sf::Vector2f Button::GetPosition()
 {
-	return sprite.getGlobalBounds().getSize();
+	return sprite.getPosition();
 }
 
 Button::~Button() {
