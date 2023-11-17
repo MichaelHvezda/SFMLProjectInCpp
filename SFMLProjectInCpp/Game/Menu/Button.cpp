@@ -15,8 +15,6 @@ Button::Button(sf::Vector2f size, sf::Font& font, std::string text)
 	this->text.setOrigin(textSize);
 
 	texture.create(static_cast<int>(size.x), static_cast<int>(size.y));
-	std::vector<sf::Uint8> pixels(size.x * size.y * 4, 0);
-	texture.update(&pixels[0]);
 	sprite.setTexture(texture);
 	auto btnSize = sprite.getGlobalBounds().getSize();
 	sprite.setOrigin(btnSize.x / 2.f, btnSize.y / 2.f);
@@ -51,14 +49,9 @@ bool Button::ClickInside(sf::Vector2i mousePos)
 
 void Button::Draw(sf::RenderWindow* window, sf::Shader* selectedShader)
 {
-	if (isSelected)
-	{
-		window->draw(sprite, selectedShader);
-		window->draw(text);
-		return;
-	}
 
-	window->draw(sprite);
+	selectedShader->setUniform("isSelected", isSelected);
+	window->draw(sprite, selectedShader);
 	window->draw(text);
 }
 

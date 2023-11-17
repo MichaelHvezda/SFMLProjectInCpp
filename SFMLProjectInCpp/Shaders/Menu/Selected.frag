@@ -1,4 +1,5 @@
 uniform sampler2D texture;
+uniform bool isSelected;
 
 void main()
 {
@@ -6,5 +7,5 @@ void main()
    // vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
 
     // multiply it by the color
-    gl_FragColor = vec4(1,1,0,1) ;
+    gl_FragColor = vec4(1,1,1,isSelected) ;
 }

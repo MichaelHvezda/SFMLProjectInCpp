@@ -6,8 +6,14 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
+		//return coz it not nesesery process others
+		if (!game->menu->isOpen) {
+			game->menu->isOpen = true;
+			return;
+		}
 		window->close();
 		Logger("window close by ESCAPE key pressed");
+		return;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
