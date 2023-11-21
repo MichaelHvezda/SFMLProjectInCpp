@@ -10,6 +10,7 @@
 #include <Player.hpp>
 #include <Events.hpp>
 #include <Menu.hpp>
+#include <Enemy.hpp>
 
 class Game
 {
@@ -17,7 +18,7 @@ public:
 	//std::vector<std::unique_ptr<SpriteWithType>> sprites;
 	std::vector<std::shared_ptr<TextureWithProperties>> textures;
 	std::vector<std::shared_ptr<Projectile>> projectiles;
-	std::vector<std::unique_ptr<sf::Sprite>> enemies;
+	std::vector<std::shared_ptr<Enemy>> enemies;
 	std::unique_ptr<Player> player;
 	sf::RenderWindow* window;
 	std::unique_ptr<Menu> menu;

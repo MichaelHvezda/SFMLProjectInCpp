@@ -38,9 +38,9 @@ Game::Game(sf::RenderWindow* w)
 
 	for (auto& text : textures)
 	{
-		if (text->props.type == Consts::GraphicObjectType::Projectile)
+		if (text->props.type == Consts::GraphicObjectType::Enemy)
 		{
-			projectiles.push_back(std::make_unique<Projectile>(text, sf::Vector2f(window->getSize().x / 2.f, text->props.sizeY + 1.f), gameTime, sf::Vector2f(0.f, Consts::MOVE_SIZE), scale));
+			enemies.push_back(std::make_shared<Enemy>(text, sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f), gameTime, sf::Vector2f(0.f, -Consts::MOVE_SIZE), scale));
 			break;
 		}
 	}
@@ -63,7 +63,16 @@ void Game::Update()
 	if (!menu->isOpen) {
 		gameTime += renderTime;
 		if (player->actionColdDown > 0)
+		{
 			player->actionColdDown -= renderTime;
+		}
+		for (const auto& enemy : enemies)
+		{
+			if (enemy->actionColdDown > 0)
+			{
+				enemy->actionColdDown -= renderTime;
+			}
+		}
 	}
 
 
@@ -91,7 +100,7 @@ void Game::MakeActions()
 			{
 				if (text->props.type == Consts::GraphicObjectType::PlayerProjectile)
 				{
-					projectiles.push_back(std::make_shared<Projectile>(text, player->sprite->getPosition(), gameTime, sf::Vector2f(0.f * scale.x, -Consts::MOVE_SIZE * scale.y), scale));
+					projectiles.push_back(std::make_shared<Projectile>(text, player->sprite->getPosition(), gameTime, sf::Vector2f(0.f * scale.x, -Consts::MOVE_SIZE * scale.y), scale, 2.f, 2.f));
 					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
 					break;
 				}
@@ -126,6 +135,41 @@ void Game::UpdateGame()
 			proj->bornTime = gameTime;
 		}
 	}
+	for (const auto& enemy : enemies)
+	{
+
+		if (moveFrameCount != moveFrameCnt)
+		{
+			enemy->Move(window->getSize(), player->sprite->getPosition());
+		}
+
+		enemy->Draw(gameTime, window);
+
+		if (enemy->actionColdDown <= 0)
+		{
+			for (auto& text : textures)
+			{
+				if (text->props.type == Consts::GraphicObjectType::Projectile)
+				{
+					auto playerPos = player->sprite->getPosition();
+					auto pos = enemy->sprite->getPosition() - playerPos;
+					auto norm = (abs(pos.x) + abs(pos.y)) * -1.f;
+					pos.x = pos.x / norm;
+					pos.y = pos.y / norm;
+					Logger(pos.x, " ", pos.y);
+					projectiles.push_back(std::make_shared<Projectile>(text, enemy->sprite->getPosition(), gameTime, sf::Vector2f(pos.x * Consts::MOVE_SIZE * scale.x, pos.y * Consts::MOVE_SIZE * scale.y), scale));
+					enemy->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
+					break;
+				}
+			}
+		}
+
+		if (IsInsideWindow(enemy->sprite->getPosition()) && enemy->healt <= 0)
+		{
+			enemy->healt = 0;
+			enemy->bornTime = gameTime;
+		}
+	}
 
 	if (moveFrameCount != moveFrameCnt)
 	{
@@ -134,6 +178,8 @@ void Game::UpdateGame()
 	player->Draw(gameTime, window);
 
 	std::erase_if(projectiles, [](const std::shared_ptr<Projectile>& p) {return p->isAlive == false; });
+
+	std::erase_if(enemies, [](const std::shared_ptr<Enemy>& p) {return p->isAlive == false; });
 
 	moveFrameCount = moveFrameCnt;
 	MakeActions();
@@ -187,9 +233,11 @@ void Game::Collisions()
 		}
 		for (auto& projectileAnother : projectiles)
 		{
-			if (projectileAnother == projectile) {
+			if (projectileAnother->healt <= 0)
+			{
 				continue;
 			}
+
 			if (projectile->sprite->getGlobalBounds().intersects(projectileAnother->sprite->getGlobalBounds()) && projectile->texture->props.type != projectileAnother->texture->props.type)
 			{
 				projectileAnother->healt -= projectile->damage;
@@ -204,7 +252,26 @@ void Game::Collisions()
 				{
 					projectileAnother->bornTime = gameTime;
 				}
-				//Logger("colision projectiles");
+				Logger("colision projectiles");
+			}
+		}
+		for (auto& enemy : enemies)
+		{
+			if (projectile->sprite->getGlobalBounds().intersects(enemy->sprite->getGlobalBounds()) && projectile->texture->props.type != Consts::GraphicObjectType::Projectile)
+			{
+				enemy->healt -= projectile->damage;
+				projectile->healt -= enemy->damage;
+
+				if (projectile->healt <= 0)
+				{
+					projectile->bornTime = gameTime;
+				}
+
+				if (enemy->healt <= 0)
+				{
+					enemy->bornTime = gameTime;
+				}
+				Logger("colision enemy");
 			}
 		}
 	}

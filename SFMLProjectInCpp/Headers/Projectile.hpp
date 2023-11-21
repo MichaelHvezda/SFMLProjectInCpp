@@ -22,6 +22,7 @@ public:
 	bool isAlive = true;
 public:
 	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale);
+	Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale, float healt, float damage);
 	~Projectile();
 public:
 	void Draw(float gameTime, sf::RenderWindow* w);

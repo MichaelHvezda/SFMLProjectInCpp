@@ -94,6 +94,7 @@ namespace Consts {
 		{  "Textures/RocketSpite.png", { GraphicObjectType::Player, 32, 32, TEXTURE_ANIMATIONS, false, 1}},
 		{  "Textures/Projectil1.png", { GraphicObjectType::PlayerProjectile, 8, 32, TEXTURE_ANIMATIONS,true, 1 }},
 		{  "Textures/Projectil1.png", { GraphicObjectType::Projectile, 8, 32, TEXTURE_ANIMATIONS, true, 1 }},
+		{  "Textures/Enemy.png", { GraphicObjectType::Enemy, 32, 32, TEXTURE_ANIMATIONS, false, 1 }},
 	};
 
 }

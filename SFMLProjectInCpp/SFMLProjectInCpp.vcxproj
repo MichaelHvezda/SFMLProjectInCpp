@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Enemy.cpp" />
     <ClCompile Include="Game\Menu\Button.cpp" />
     <ClCompile Include="Graphics\Animation.cpp" />
     <ClCompile Include="Events\Events.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Graphics\Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Enemy.hpp" />
     <ClInclude Include="Headers\Button.hpp" />
     <ClInclude Include="Headers\Animation.hpp" />
     <ClInclude Include="Headers\Consts.hpp" />

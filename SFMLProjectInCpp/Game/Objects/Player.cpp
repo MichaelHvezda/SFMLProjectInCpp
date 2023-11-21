@@ -2,6 +2,7 @@
 
 Player::Player(std::shared_ptr<TextureWithProperties>& t)
 {
+	bornTime = 0.f;
 	texture = t;
 	sprite = std::make_unique<sf::Sprite>();
 	//LoadTexture(texture);

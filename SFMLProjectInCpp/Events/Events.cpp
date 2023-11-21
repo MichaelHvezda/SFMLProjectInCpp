@@ -71,6 +71,19 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 				proj->direction.y *= scaleY;
 			}
 
+			for (auto& enemy : game->enemies)
+			{
+				auto pos = enemy->sprite->getPosition();
+				auto rateX = pos.x / static_cast<float>(size.x);
+				auto rateY = pos.y / static_cast<float>(size.y);
+
+				enemy->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
+				enemy->sprite->scale(scaleX, scaleY);
+
+				enemy->direction.x *= scaleX;
+				enemy->direction.y *= scaleY;
+			}
+
 			game->menu->Resize(sf::Vector2f(event.size.width, event.size.height), sf::Vector2f(scaleX, scaleY));
 
 			break;

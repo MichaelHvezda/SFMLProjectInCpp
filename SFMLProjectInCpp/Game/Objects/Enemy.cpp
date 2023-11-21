@@ -1,6 +1,6 @@
-#include <Projectile.hpp>
+#include <Enemy.hpp>
 
-Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale)
+Enemy::Enemy(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale)
 {
 	bornTime = gameTime;
 	texture = t;
@@ -17,34 +17,21 @@ Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f p
 	sprite->setPosition(pos);
 	sprite->scale(sf::Vector2f(0.5f * scale.x, 0.5f * scale.y));
 
-	float rotation = (float)(atan2(dir.x, -dir.y) / (2 * Consts::PI)) * 360.f;
+	float rotation = (float)(atan2(dir.x, dir.y) / (2 * Consts::PI)) * 360.f - 180.f;
 	sprite->setRotation(rotation);
-	Logger(rotation);
+
 	textureCount = texture->props.animationsCount;
 	direction = dir;
 }
 
-Projectile::Projectile(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale, float healt, float damage) : Projectile(t, pos, gameTime, dir, scale)
-{
-	this->healt = healt;
-	this->damage = damage;
-}
-Projectile::~Projectile()
+Enemy::~Enemy()
 {
 }
 
-void Projectile::Move()
+void Enemy::Draw(float gameTime, sf::RenderWindow* w)
 {
-	if (healt > 0)
-		sprite->move(direction);
-}
-
-void Projectile::Draw(float gameTime, sf::RenderWindow* w)
-{
-
 	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
 	int animation = animationPos % textureCount;
-
 
 	if (healt > 0)
 	{
@@ -68,4 +55,10 @@ void Projectile::Draw(float gameTime, sf::RenderWindow* w)
 	if (isAlive) {
 		w->draw(*sprite);
 	}
+}
+
+
+void Enemy::Move(const sf::Vector2u& windowSize, const sf::Vector2f& playerPosition)
+{
+	// do ai move here
 }
