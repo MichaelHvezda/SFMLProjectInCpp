@@ -11,6 +11,7 @@ namespace Consts {
 
 	static const int TEXTURE_ANIMATIONS = 4;
 	static const float MOVE_SIZE = 2.0f;
+	static const float MOVE_ENEMY_SIZE = MOVE_SIZE / 3.f;
 
 	static const float ANIMATE_EVERY_X_SECOUND = 1 / 8.f;
 	static const float MOVE_EVERY_X_SECOUND = 1 / 60.f;

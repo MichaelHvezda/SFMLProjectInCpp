@@ -60,5 +60,35 @@ void Enemy::Draw(float gameTime, sf::RenderWindow* w)
 
 void Enemy::Move(const sf::Vector2u& windowSize, const sf::Vector2f& playerPosition)
 {
+	auto dif = this->sprite->getPosition() - playerPosition;
+	auto length = CalculLength(dif);
+
+	auto lengthMax = CalculLength(windowSize);
+
+	if (length < lengthMax / 3.f)
+	{
+		if (dif.x > dif.y)
+		{
+			sprite->move(sf::Vector2f(Consts::MOVE_ENEMY_SIZE, 0.f));
+		}
+		if (dif.x <= dif.y)
+		{
+			sprite->move(sf::Vector2f(-Consts::MOVE_ENEMY_SIZE, 0.f));
+		}
+		return;
+	}
+
+	sprite->move(sf::Vector2f(0.f, Consts::MOVE_ENEMY_SIZE));
+
 	// do ai move here
+}
+
+float CalculLength(const sf::Vector2f& dif)
+{
+	return sqrt(dif.x * dif.x + dif.y * dif.y);
+}
+
+float CalculLength(const sf::Vector2u& dif)
+{
+	return sqrt(dif.x * dif.x + dif.y * dif.y);
 }

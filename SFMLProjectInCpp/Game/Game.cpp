@@ -129,7 +129,7 @@ void Game::UpdateGame()
 
 		proj->Draw(gameTime, window);
 
-		if (IsInsideWindow(proj->sprite->getPosition()) && proj->healt <= 0)
+		if (IsInsideWindow(proj->sprite->getPosition()) && proj->healt > 0)
 		{
 			proj->healt = 0;
 			proj->bornTime = gameTime;
@@ -156,7 +156,7 @@ void Game::UpdateGame()
 					auto norm = (abs(pos.x) + abs(pos.y)) * -1.f;
 					pos.x = pos.x / norm;
 					pos.y = pos.y / norm;
-					Logger(pos.x, " ", pos.y);
+					//Logger(pos.x, " ", pos.y);
 					projectiles.push_back(std::make_shared<Projectile>(text, enemy->sprite->getPosition(), gameTime, sf::Vector2f(pos.x * Consts::MOVE_SIZE * scale.x, pos.y * Consts::MOVE_SIZE * scale.y), scale));
 					enemy->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
 					break;
@@ -164,7 +164,7 @@ void Game::UpdateGame()
 			}
 		}
 
-		if (IsInsideWindow(enemy->sprite->getPosition()) && enemy->healt <= 0)
+		if (IsInsideWindow(enemy->sprite->getPosition()) && enemy->healt > 0)
 		{
 			enemy->healt = 0;
 			enemy->bornTime = gameTime;

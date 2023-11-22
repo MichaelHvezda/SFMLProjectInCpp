@@ -28,4 +28,8 @@ public:
 	void Move(const sf::Vector2u& windowSize, const sf::Vector2f& playerPosition);
 };
 
+
+float CalculLength(const sf::Vector2f& dif);
+
+float CalculLength(const sf::Vector2u& dif);
 #endif
