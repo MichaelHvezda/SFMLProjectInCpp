@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\SFML-2.6.1\include;$(SolutionDir)\SFMLProjectInCpp\Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\SFML-2.6.1\include;$(SolutionDir)\SFMLProjectInCpp\Headers;$(SolutionDir)\Dependencies\entt</AdditionalIncludeDirectories>
       <AdditionalHeaderUnitDependencies>
       </AdditionalHeaderUnitDependencies>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -140,6 +140,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Entity\Entity.cpp" />
+    <ClCompile Include="Game\Entity\EntitiesManager.cpp" />
     <ClCompile Include="Game\Objects\Enemy.cpp" />
     <ClCompile Include="Game\Menu\Button.cpp" />
     <ClCompile Include="Graphics\Animation.cpp" />
@@ -154,6 +156,9 @@
     <ClCompile Include="Graphics\Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Entity.hpp" />
+    <ClInclude Include="Headers\EntitiesManager.hpp" />
+    <ClInclude Include="Headers\Component.hpp" />
     <ClInclude Include="Headers\Enemy.hpp" />
     <ClInclude Include="Headers\Button.hpp" />
     <ClInclude Include="Headers\Animation.hpp" />

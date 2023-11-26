@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Game\Menu">
       <UniqueIdentifier>{1c1dfe6a-d00f-42c2-8858-07965405ba68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Entity">
+      <UniqueIdentifier>{84838170-0b05-430a-a4fd-e02897a754b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SFMLProjectInCpp.cpp">
@@ -80,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="Game\Objects\Enemy.cpp">
       <Filter>Source Files\Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\EntitiesManager.cpp">
+      <Filter>Source Files\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Entity\Entity.cpp">
+      <Filter>Source Files\Game\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +129,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Enemy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Component.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\EntitiesManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Entity.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
