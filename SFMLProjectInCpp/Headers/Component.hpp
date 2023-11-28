@@ -4,49 +4,55 @@
 
 #include <SFML/Graphics.hpp>
 #include <Consts.hpp>
-#include <set>
 
-namespace Entity {
 
-	struct SpriteComponent
-	{
-		sf::Sprite sprite;
-	};
+struct SpriteComponent
+{
 
-	struct PositionComponent
-	{
-		sf::Vector2f position;
-		sf::Vector2f scale;
-		int xBase, yBase;
-	};
+	sf::Sprite sprite;
 
-	struct MomentumComponent
-	{
-		sf::Vector2f momentum;
-	};
+	SpriteComponent() = default;
+	SpriteComponent(const SpriteComponent&) = default;
+	SpriteComponent(const sf::Sprite& sprite) :sprite(sprite) {};
+};
 
-	struct ShootComponent
-	{
-		sf::Sprite shootSprite;
-		float damage;
-		float actionColdDown;
-	};
+struct PositionComponent
+{
+	sf::Vector2f position;
+	sf::Vector2f scale;
+	int xBase, yBase;
+};
 
-	struct HealthComponent
-	{
-		float health;
-	};
+struct MomentumComponent
+{
+	sf::Vector2f momentum;
+};
 
-	struct AnimationComponent
-	{
-		bool haveDeadAnimation;
-		int textureCount;
-		float bornTime;
-	};
+struct ShootComponent
+{
+	sf::Sprite shootSprite;
+	float damage;
+	float actionColdDown;
+};
 
-	struct TypeComponent
-	{
-		Consts::GraphicObjectType type;
-	};
-}
+struct HealthComponent
+{
+	HealthComponent() = default;
+	HealthComponent(const HealthComponent&) = default;
+	HealthComponent(const float health) :health(health) {};
+	float health;
+};
+
+struct AnimationComponent
+{
+	bool haveDeadAnimation;
+	int textureCount;
+	int animationsCount;
+	float bornTime;
+};
+
+struct TypeComponent
+{
+	Consts::GraphicObjectType type;
+};
 #endif

@@ -4,26 +4,25 @@
 
 
 #include <entt.hpp>
-#include <Entity.hpp>
+#include <SFML/Graphics.hpp>
+//#include <Entity.hpp>
+class Entity;
+class EntitiesManager
+{
+public:
+	EntitiesManager(sf::RenderWindow* w);
+	~EntitiesManager();
+public:
+	void Update();
+	void Draw();
 
-namespace Entity {
-	class EntitiesManager
-	{
-	public:
-		EntitiesManager(sf::RenderWindow* w);
-		~EntitiesManager();
-	public:
-		void Update();
-		void Draw();
-
-		Entity CreateEntity();
-	private:
-		entt::registry registry;
-		sf::RenderWindow* window;
-	private:
-		friend class Entity;
-	};
-}
+	Entity CreateEntity();
+private:
+	entt::registry registry;
+	sf::RenderWindow* window;
+private:
+	friend class Entity;
+};
 
 
 #endif

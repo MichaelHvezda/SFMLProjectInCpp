@@ -12,6 +12,8 @@
 #include <Menu.hpp>
 #include <Enemy.hpp>
 
+#include <EntitiesManager.hpp>
+
 class Game
 {
 public:
@@ -38,6 +40,9 @@ private:
 	bool IsInsideWindow(sf::Vector2f pos);
 	void UpdateGame();
 	void UpdateMenu();
+
+private:
+	EntitiesManager manager;
 };
 
 #endif // EVENTS_H

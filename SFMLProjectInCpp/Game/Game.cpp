@@ -1,51 +1,59 @@
 #include <Game.hpp>
+#include <Component.hpp>
+#include <Entity.hpp>
 
-Game::Game(sf::RenderWindow* w)
+Game::Game(sf::RenderWindow* w) : window(w), manager(w)
 {
 	window = w;
 	int i = 0;
-	try
-	{
-		for (const auto& tex : Consts::TexturesToLoad)
-		{
-			textures.push_back(std::make_shared<TextureWithProperties>(tex.props));
-			LoadTexture(textures[i], tex.path);
-			//player = std::make_unique<Player>(textures[0]);
+	auto ent = manager.CreateEntity();
+	HealthComponent a(0);
+	auto healt = ent.AddComponents<HealthComponent>(10.f);
+	auto sss = ent.HaveComponents<HealthComponent>();
+	auto ffa = ent.GetComponents<HealthComponent>();
+	//auto healt = ent.AddComponents<HealthComponent>(0.f);
+	//try
+	//{
+	//	for (const auto& tex : Consts::TexturesToLoad)
+	//	{
+	//		textures.push_back(std::make_shared<TextureWithProperties>(tex.props));
+	//		LoadTexture(textures[i], tex.path);
+	//		//player = std::make_unique<Player>(textures[0]);
 
-			i++;
-		}
-	}
-	catch (std::exception& ex)
-	{
-		LoggerEx(ex);
-		//throw ex;
-	}
+	//		i++;
+	//	}
+	//}
+	//catch (std::exception& ex)
+	//{
+	//	LoggerEx(ex);
+	//	//throw ex;
+	//}
 
-	for (auto& text : textures) {
-		if (text->props.type == Consts::GraphicObjectType::Player)
-		{
-			player = std::make_unique<Player>(text);
-			break;
-		}
-	}
-	scale.x = 1.0f;
-	scale.y = 1.0f;
-	//Textures.push_back(std::make_unique<sf::Texture>());
-	//Sprites.push_back(std::make_unique<sf::Sprite>());
+	//for (auto& text : textures) {
+	//	if (text->props.type == Consts::GraphicObjectType::Player)
+	//	{
+	//		player = std::make_unique<Player>(text);
+	//		break;
+	//	}
+	//}
+	//scale.x = 1.0f;
+	//scale.y = 1.0f;
+	////Textures.push_back(std::make_unique<sf::Texture>());
+	////Sprites.push_back(std::make_unique<sf::Sprite>());
 
-	//CreateSprite(Sprites[0], Textures[0]);
-	player->SetDefaultPosition(window);
+	////CreateSprite(Sprites[0], Textures[0]);
+	//player->SetDefaultPosition(window);
 
-	for (auto& text : textures)
-	{
-		if (text->props.type == Consts::GraphicObjectType::Enemy)
-		{
-			enemies.push_back(std::make_shared<Enemy>(text, sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f), gameTime, sf::Vector2f(0.f, -Consts::MOVE_SIZE), scale));
-			break;
-		}
-	}
+	//for (auto& text : textures)
+	//{
+	//	if (text->props.type == Consts::GraphicObjectType::Enemy)
+	//	{
+	//		enemies.push_back(std::make_shared<Enemy>(text, sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f), gameTime, sf::Vector2f(0.f, -Consts::MOVE_SIZE), scale));
+	//		break;
+	//	}
+	//}
 
-	menu = std::make_unique<Menu>(window->getSize());
+	//menu = std::make_unique<Menu>(window->getSize());
 }
 
 Game::~Game()
@@ -55,39 +63,39 @@ Game::~Game()
 
 void Game::Update()
 {
-	ProcessEvents(window, this);
+	//ProcessEvents(window, this);
 
-	//always reset time
-	auto renderTime = clock.restart().asSeconds();
+	////always reset time
+	//auto renderTime = clock.restart().asSeconds();
 
-	if (!menu->isOpen) {
-		gameTime += renderTime;
-		if (player->actionColdDown > 0)
-		{
-			player->actionColdDown -= renderTime;
-		}
-		for (const auto& enemy : enemies)
-		{
-			if (enemy->actionColdDown > 0)
-			{
-				enemy->actionColdDown -= renderTime;
-			}
-		}
-	}
+	//if (!menu->isOpen) {
+	//	gameTime += renderTime;
+	//	if (player->actionColdDown > 0)
+	//	{
+	//		player->actionColdDown -= renderTime;
+	//	}
+	//	for (const auto& enemy : enemies)
+	//	{
+	//		if (enemy->actionColdDown > 0)
+	//		{
+	//			enemy->actionColdDown -= renderTime;
+	//		}
+	//	}
+	//}
 
 
-	if (isGameStart) {
-		UpdateGame();
-	}
+	//if (isGameStart) {
+	//	UpdateGame();
+	//}
 
-	if (menu->isOpen) {
-		UpdateMenu();
-	}
+	//if (menu->isOpen) {
+	//	UpdateMenu();
+	//}
 }
 
 void Game::MakeActions()
 {
-	for (const auto& act : player->actions)
+	/*for (const auto& act : player->actions)
 	{
 		if (player->actionColdDown > 0.f)
 		{
@@ -110,84 +118,84 @@ void Game::MakeActions()
 			break;
 		}
 	}
-	player->actions.clear();
+	player->actions.clear();*/
 }
 
 
 void Game::UpdateGame()
 {
 	//int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
-	int moveFrameCnt = static_cast<int>((gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND);
+	//int moveFrameCnt = static_cast<int>((gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND);
 
-	for (const auto& proj : projectiles)
-	{
+	//for (const auto& proj : projectiles)
+	//{
 
-		if (moveFrameCount != moveFrameCnt)
-		{
-			proj->Move();
-		}
+	//	if (moveFrameCount != moveFrameCnt)
+	//	{
+	//		proj->Move();
+	//	}
 
-		proj->Draw(gameTime, window);
+	//	proj->Draw(gameTime, window);
 
-		if (IsInsideWindow(proj->sprite->getPosition()) && proj->healt > 0)
-		{
-			proj->healt = 0;
-			proj->bornTime = gameTime;
-		}
-	}
-	for (const auto& enemy : enemies)
-	{
+	//	if (IsInsideWindow(proj->sprite->getPosition()) && proj->healt > 0)
+	//	{
+	//		proj->healt = 0;
+	//		proj->bornTime = gameTime;
+	//	}
+	//}
+	//for (const auto& enemy : enemies)
+	//{
 
-		if (moveFrameCount != moveFrameCnt)
-		{
-			enemy->Move(window->getSize(), player->sprite->getPosition());
-		}
+	//	if (moveFrameCount != moveFrameCnt)
+	//	{
+	//		enemy->Move(window->getSize(), player->sprite->getPosition());
+	//	}
 
-		enemy->Draw(gameTime, window);
+	//	enemy->Draw(gameTime, window);
 
-		if (enemy->actionColdDown <= 0)
-		{
-			for (auto& text : textures)
-			{
-				if (text->props.type == Consts::GraphicObjectType::Projectile)
-				{
-					auto playerPos = player->sprite->getPosition();
-					auto pos = enemy->sprite->getPosition() - playerPos;
-					auto norm = (abs(pos.x) + abs(pos.y)) * -1.f;
-					pos.x = pos.x / norm;
-					pos.y = pos.y / norm;
-					//Logger(pos.x, " ", pos.y);
-					projectiles.push_back(std::make_shared<Projectile>(text, enemy->sprite->getPosition(), gameTime, sf::Vector2f(pos.x * Consts::MOVE_SIZE * scale.x, pos.y * Consts::MOVE_SIZE * scale.y), scale));
-					enemy->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
-					break;
-				}
-			}
-		}
+	//	if (enemy->actionColdDown <= 0)
+	//	{
+	//		for (auto& text : textures)
+	//		{
+	//			if (text->props.type == Consts::GraphicObjectType::Projectile)
+	//			{
+	//				auto playerPos = player->sprite->getPosition();
+	//				auto pos = enemy->sprite->getPosition() - playerPos;
+	//				auto norm = (abs(pos.x) + abs(pos.y)) * -1.f;
+	//				pos.x = pos.x / norm;
+	//				pos.y = pos.y / norm;
+	//				//Logger(pos.x, " ", pos.y);
+	//				projectiles.push_back(std::make_shared<Projectile>(text, enemy->sprite->getPosition(), gameTime, sf::Vector2f(pos.x * Consts::MOVE_SIZE * scale.x, pos.y * Consts::MOVE_SIZE * scale.y), scale));
+	//				enemy->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
+	//				break;
+	//			}
+	//		}
+	//	}
 
-		if (IsInsideWindow(enemy->sprite->getPosition()) && enemy->healt > 0)
-		{
-			enemy->healt = 0;
-			enemy->bornTime = gameTime;
-		}
-	}
+	//	if (IsInsideWindow(enemy->sprite->getPosition()) && enemy->healt > 0)
+	//	{
+	//		enemy->healt = 0;
+	//		enemy->bornTime = gameTime;
+	//	}
+	//}
 
-	if (moveFrameCount != moveFrameCnt)
-	{
-		player->Move(window->getSize(), scale);
-	}
-	player->Draw(gameTime, window);
+	//if (moveFrameCount != moveFrameCnt)
+	//{
+	//	player->Move(window->getSize(), scale);
+	//}
+	//player->Draw(gameTime, window);
 
-	std::erase_if(projectiles, [](const std::shared_ptr<Projectile>& p) {return p->isAlive == false; });
+	//std::erase_if(projectiles, [](const std::shared_ptr<Projectile>& p) {return p->isAlive == false; });
 
-	std::erase_if(enemies, [](const std::shared_ptr<Enemy>& p) {return p->isAlive == false; });
+	//std::erase_if(enemies, [](const std::shared_ptr<Enemy>& p) {return p->isAlive == false; });
 
-	moveFrameCount = moveFrameCnt;
-	MakeActions();
-	Collisions();
+	//moveFrameCount = moveFrameCnt;
+	//MakeActions();
+	//Collisions();
 }
 void Game::UpdateMenu()
 {
-	auto viewSize = window->getView().getSize();
+	/*auto viewSize = window->getView().getSize();
 	auto col = sf::Color(0, 0, 0, 200);
 
 	sf::VertexArray lineStrip(sf::TriangleStrip, 4);
@@ -203,13 +211,13 @@ void Game::UpdateMenu()
 	lineStrip[3].position = sf::Vector2f(0.f, viewSize.y);
 	lineStrip[3].color = col;
 	window->draw(lineStrip);
-	menu->Draw(window);
+	menu->Draw(window);*/
 }
 
 
 void Game::Collisions()
 {
-	for (auto& projectile : projectiles)
+	/*for (auto& projectile : projectiles)
 	{
 		if (projectile->healt <= 0)
 		{
@@ -274,18 +282,18 @@ void Game::Collisions()
 				Logger("colision enemy");
 			}
 		}
-	}
+	}*/
 }
 
 bool Game::IsInsideWindow(sf::Vector2f pos)
 {
-	auto wSize = window->getSize();
+	/*auto wSize = window->getSize();
 
 	if (wSize.x < pos.x || wSize.y < pos.y)
 		return true;
 
 	if (pos.x < 0 || pos.y < 0)
 		return true;
-
+*/
 	return false;
 }
