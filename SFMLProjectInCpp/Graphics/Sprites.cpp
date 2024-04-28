@@ -6,3 +6,9 @@ void CreateSprite(const std::unique_ptr<sf::Sprite>& sprite, const std::shared_p
 
 	sprite->setTexture(texture->texture);
 }
+
+void CreateSprite(sf::Sprite& sprite, const std::shared_ptr<TextureWithProperties>& texture)
+{
+
+	sprite.setTexture(texture->texture);
+}

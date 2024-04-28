@@ -24,7 +24,7 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 	}
 
 	//game->player.directions.clear();
-	for (const auto& maps : Consts::KeyActionMap)
+	/*for (const auto& maps : Consts::KeyActionMap)
 	{
 		SetActions(maps, game->player->actions);
 	}
@@ -32,7 +32,7 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 	for (const auto& maps : Consts::KeyDirectionMap)
 	{
 		SetActions(maps, game->player->directions);
-	}
+	}*/
 	//SetActions(game);
 }
 
@@ -41,16 +41,16 @@ void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* 
 
 	//Logger("Key released: ", event.key.scancode, event.key.code);
 
-	for (const auto& maps : Consts::KeyActionMap)
-	{
-		EraseActions(maps, game->player->actions);
-	}
+	//for (const auto& maps : Consts::KeyActionMap)
+	//{
+	//	EraseActions(maps, game->player->actions);
+	//}
 
-	//game->player.directions.clear();
-	for (const auto& maps : Consts::KeyDirectionMap)
-	{
-		EraseActions(maps, game->player->directions);
-	}
+	////game->player.directions.clear();
+	//for (const auto& maps : Consts::KeyDirectionMap)
+	//{
+	//	EraseActions(maps, game->player->directions);
+	//}
 
 }
 

@@ -18,22 +18,22 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 			break;
 
 			// key pressed
-		case sf::Event::KeyPressed:
-			ProcessKeyPressed(window, event, game);
-			break;
-		case sf::Event::KeyReleased:
-			ProcessKeyReleased(window, event, game);
-			break;
+		//case sf::Event::KeyPressed:
+		//	ProcessKeyPressed(window, event, game);
+		//	break;
+		//case sf::Event::KeyReleased:
+		//	ProcessKeyReleased(window, event, game);
+		//	break;
 
-		case sf::Event::MouseMoved:
-			ProcessMouseMoved(window, event, game);
-			break;
-		case sf::Event::MouseButtonPressed:
-			ProcessMousePressed(window, event, game);
-			break;
-		case sf::Event::MouseButtonReleased:
-			ProcessMouseReleased(window, event, game);
-			break;
+			//case sf::Event::MouseMoved:
+			//	ProcessMouseMoved(window, event, game);
+			//	break;
+			//case sf::Event::MouseButtonPressed:
+			//	ProcessMousePressed(window, event, game);
+			//	break;
+			//case sf::Event::MouseButtonReleased:
+			//	ProcessMouseReleased(window, event, game);
+			//	break;
 
 		case sf::Event::Resized:
 		{
@@ -49,42 +49,42 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 			game->scale.x = event.size.width / static_cast<float>(defau.x);
 			game->scale.y = event.size.height / static_cast<float>(defau.y);
 
-			{
-				auto pos = game->player->sprite->getPosition();
-				auto rateX = pos.x / static_cast<float>(size.x);
-				auto rateY = pos.y / static_cast<float>(size.y);
+			//{
+			//	auto pos = game->player->sprite->getPosition();
+			//	auto rateX = pos.x / static_cast<float>(size.x);
+			//	auto rateY = pos.y / static_cast<float>(size.y);
 
-				game->player->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
-				game->player->sprite->scale(scaleX, scaleY);
-			}
+			//	game->player->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
+			//	game->player->sprite->scale(scaleX, scaleY);
+			//}
 
-			for (auto& proj : game->projectiles)
-			{
-				auto pos = proj->sprite->getPosition();
-				auto rateX = pos.x / static_cast<float>(size.x);
-				auto rateY = pos.y / static_cast<float>(size.y);
+			//for (auto& proj : game->projectiles)
+			//{
+			//	auto pos = proj->sprite->getPosition();
+			//	auto rateX = pos.x / static_cast<float>(size.x);
+			//	auto rateY = pos.y / static_cast<float>(size.y);
 
-				proj->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
-				proj->sprite->scale(scaleX, scaleY);
+			//	proj->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
+			//	proj->sprite->scale(scaleX, scaleY);
 
-				proj->direction.x *= scaleX;
-				proj->direction.y *= scaleY;
-			}
+			//	proj->direction.x *= scaleX;
+			//	proj->direction.y *= scaleY;
+			//}
 
-			for (auto& enemy : game->enemies)
-			{
-				auto pos = enemy->sprite->getPosition();
-				auto rateX = pos.x / static_cast<float>(size.x);
-				auto rateY = pos.y / static_cast<float>(size.y);
+			//for (auto& enemy : game->enemies)
+			//{
+			//	auto pos = enemy->sprite->getPosition();
+			//	auto rateX = pos.x / static_cast<float>(size.x);
+			//	auto rateY = pos.y / static_cast<float>(size.y);
 
-				enemy->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
-				enemy->sprite->scale(scaleX, scaleY);
+			//	enemy->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
+			//	enemy->sprite->scale(scaleX, scaleY);
 
-				enemy->direction.x *= scaleX;
-				enemy->direction.y *= scaleY;
-			}
+			//	enemy->direction.x *= scaleX;
+			//	enemy->direction.y *= scaleY;
+			//}
 
-			game->menu->Resize(sf::Vector2f(event.size.width, event.size.height), sf::Vector2f(scaleX, scaleY));
+			//game->menu->Resize(sf::Vector2f(event.size.width, event.size.height), sf::Vector2f(scaleX, scaleY));
 
 			break;
 		}

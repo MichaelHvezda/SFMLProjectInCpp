@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include <Sprites.hpp>
 #include <Textures.hpp>
 #include <Projectile.hpp>
@@ -11,6 +12,7 @@
 #include <Events.hpp>
 #include <Menu.hpp>
 #include <Enemy.hpp>
+#include <Consts.hpp>
 
 #include <EntitiesManager.hpp>
 
@@ -18,10 +20,10 @@ class Game
 {
 public:
 	//std::vector<std::unique_ptr<SpriteWithType>> sprites;
-	std::vector<std::shared_ptr<TextureWithProperties>> textures;
-	std::vector<std::shared_ptr<Projectile>> projectiles;
-	std::vector<std::shared_ptr<Enemy>> enemies;
-	std::unique_ptr<Player> player;
+	std::unordered_map<Consts::GraphicObjectType, std::shared_ptr<TextureWithProperties>> textures;
+	//std::vector<std::shared_ptr<Projectile>> projectiles;
+	//std::vector<std::shared_ptr<Enemy>> enemies;
+	//std::unique_ptr<Player> player;
 	sf::RenderWindow* window;
 	std::unique_ptr<Menu> menu;
 	sf::Clock clock;

@@ -4,30 +4,35 @@
 
 Game::Game(sf::RenderWindow* w) : window(w), manager(w)
 {
-	window = w;
-	int i = 0;
 	auto ent = manager.CreateEntity();
-	HealthComponent a(0);
-	auto healt = ent.AddComponents<HealthComponent>(10.f);
-	auto sss = ent.HaveComponents<HealthComponent>();
-	auto ffa = ent.GetComponents<HealthComponent>();
-	//auto healt = ent.AddComponents<HealthComponent>(0.f);
-	//try
-	//{
-	//	for (const auto& tex : Consts::TexturesToLoad)
-	//	{
-	//		textures.push_back(std::make_shared<TextureWithProperties>(tex.props));
-	//		LoadTexture(textures[i], tex.path);
-	//		//player = std::make_unique<Player>(textures[0]);
 
-	//		i++;
-	//	}
-	//}
-	//catch (std::exception& ex)
-	//{
-	//	LoggerEx(ex);
-	//	//throw ex;
-	//}
+	auto healt = ent.AddComponents<HealthComponent>(10.f);
+	//auto healt = ent.AddComponents<HealthComponent>(0.f);
+	try
+	{
+		for (const auto& tex : Consts::TexturesToLoad)
+		{
+			textures[tex.props.type] = std::make_shared<TextureWithProperties>(tex.props);
+			LoadTexture(textures[tex.props.type], tex.path);
+			//player = std::make_unique<Player>(textures[0]);
+		}
+	}
+	catch (std::exception& ex)
+	{
+		LoggerEx(ex);
+		//throw ex;
+	}
+
+	sf::Sprite sprite;
+	//LoadTexture(texture);
+	auto texturaWithProps = textures[Consts::GraphicObjectType::Player];
+
+	sprite.setTexture(texturaWithProps->texture);
+
+	auto spriteComp = ent.AddComponents<SpriteComponent>(sprite);
+	ent.AddComponents<PositionComponent>(sf::Vector2f(255.f, 255.f), spriteComp.sprite.getScale(), sf::Vector2u(texturaWithProps->props.sizeX, texturaWithProps->props.sizeY));
+
+
 
 	//for (auto& text : textures) {
 	//	if (text->props.type == Consts::GraphicObjectType::Player)
@@ -63,11 +68,22 @@ Game::~Game()
 
 void Game::Update()
 {
-	//ProcessEvents(window, this);
 
-	////always reset time
-	//auto renderTime = clock.restart().asSeconds();
 
+
+	ProcessEvents(window, this);
+
+	//always reset time
+	auto renderTime = clock.restart().asSeconds();
+	int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
+	int moveFrameCnt = static_cast<int>((gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND);
+
+
+	manager.Draw();
+
+
+	gameTime += renderTime;
+	moveFrameCount = moveFrameCnt;
 	//if (!menu->isOpen) {
 	//	gameTime += renderTime;
 	//	if (player->actionColdDown > 0)
@@ -287,13 +303,13 @@ void Game::Collisions()
 
 bool Game::IsInsideWindow(sf::Vector2f pos)
 {
-	/*auto wSize = window->getSize();
+	auto wSize = window->getSize();
 
 	if (wSize.x < pos.x || wSize.y < pos.y)
 		return true;
 
 	if (pos.x < 0 || pos.y < 0)
 		return true;
-*/
+
 	return false;
 }

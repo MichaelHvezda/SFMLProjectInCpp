@@ -3,6 +3,7 @@
 
 #include <entt.hpp>
 #include <Entity.hpp>
+#include <Component.hpp>
 
 EntitiesManager::EntitiesManager(sf::RenderWindow* w) : window(w)
 {
@@ -16,6 +17,15 @@ void EntitiesManager::Update()
 }
 void EntitiesManager::Draw()
 {
+	auto group = registry.group<PositionComponent, SpriteComponent>();
+
+	for (auto& entity : group)
+	{
+		auto [pos, spr] = group.get<PositionComponent, SpriteComponent>(entity);
+
+		spr.sprite.setPosition(pos.position);
+		window->draw(spr.sprite);
+	}
 }
 
 Entity EntitiesManager::CreateEntity()

@@ -20,7 +20,11 @@ struct PositionComponent
 {
 	sf::Vector2f position;
 	sf::Vector2f scale;
-	int xBase, yBase;
+	sf::Vector2u baseSize;
+
+	PositionComponent() = default;
+	PositionComponent(const PositionComponent&) = default;
+	PositionComponent(sf::Vector2f position, sf::Vector2f scale, sf::Vector2u baseSize) :position(position), scale(scale), baseSize(baseSize) {};
 };
 
 struct MomentumComponent
@@ -54,5 +58,9 @@ struct AnimationComponent
 struct TypeComponent
 {
 	Consts::GraphicObjectType type;
+
+	TypeComponent() = default;
+	TypeComponent(const TypeComponent&) = default;
+	TypeComponent(Consts::GraphicObjectType type) :type(type) {};
 };
 #endif

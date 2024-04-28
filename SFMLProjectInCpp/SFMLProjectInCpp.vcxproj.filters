@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Game\Entity">
       <UniqueIdentifier>{84838170-0b05-430a-a4fd-e02897a754b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\CustomTypes">
+      <UniqueIdentifier>{1abda99e-2b1b-4fae-9ba2-faced2808847}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SFMLProjectInCpp.cpp">

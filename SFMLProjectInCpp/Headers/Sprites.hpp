@@ -15,6 +15,6 @@ struct SpriteWithType
 };
 
 void CreateSprite(const std::unique_ptr<sf::Sprite>& sprite, const std::shared_ptr<TextureWithProperties>& texture);
-
+void CreateSprite(sf::Sprite& sprite, const std::shared_ptr<TextureWithProperties>& texture);
 
 #endif // EVENTS_H
