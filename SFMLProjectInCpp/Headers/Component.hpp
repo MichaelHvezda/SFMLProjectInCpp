@@ -49,10 +49,18 @@ struct HealthComponent
 
 struct AnimationComponent
 {
+	sf::Vector2i textureSize;
 	bool haveDeadAnimation;
-	int textureCount;
+	//int textureCount;
 	int animationsCount;
 	float bornTime;
+
+	AnimationComponent() = default;
+
+	AnimationComponent(const sf::Vector2i& textureSize, bool haveDeadAnimation, int animationsCount, float bornTime)
+		: textureSize(textureSize), haveDeadAnimation(haveDeadAnimation), animationsCount(animationsCount), bornTime(bornTime)
+	{
+	}
 };
 
 struct TypeComponent

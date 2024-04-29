@@ -2,7 +2,7 @@
 #include <Component.hpp>
 #include <Entity.hpp>
 
-Game::Game(sf::RenderWindow* w) : window(w), manager(w)
+Game::Game(sf::RenderWindow* w) : window(w), manager(w, gameTime)
 {
 	auto ent = manager.CreateEntity();
 
@@ -29,7 +29,10 @@ Game::Game(sf::RenderWindow* w) : window(w), manager(w)
 
 	sprite.setTexture(texturaWithProps->texture);
 
+	auto& const textProps = texturaWithProps->props;
+
 	auto spriteComp = ent.AddComponents<SpriteComponent>(sprite);
+	auto animionComp = ent.AddComponents<AnimationComponent>(sf::Vector2i(textProps.sizeX, textProps.sizeY), textProps.haveDeadAnimation, textProps.animationsCount, gameTime);
 	ent.AddComponents<PositionComponent>(sf::Vector2f(255.f, 255.f), spriteComp.sprite.getScale(), sf::Vector2u(texturaWithProps->props.sizeX, texturaWithProps->props.sizeY));
 
 

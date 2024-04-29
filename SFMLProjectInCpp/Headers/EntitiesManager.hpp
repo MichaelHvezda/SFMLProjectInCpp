@@ -10,17 +10,18 @@ class Entity;
 class EntitiesManager
 {
 public:
-	EntitiesManager(sf::RenderWindow* w);
+	EntitiesManager(sf::RenderWindow* w, const float& gameTime);
 	~EntitiesManager();
 public:
 	void Update();
 	void Draw();
-	void ResizeAll(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize);
+	void ResizeAll(const sf::Event::SizeEvent& newSize, sf::Vector2u oldSize);
 
 	Entity CreateEntity();
 private:
 	entt::registry registry;
 	sf::RenderWindow* window;
+	const float& gameTime;
 private:
 	friend class Entity;
 };
