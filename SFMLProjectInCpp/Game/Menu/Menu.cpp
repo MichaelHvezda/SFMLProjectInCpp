@@ -44,19 +44,21 @@ void Menu::Draw(sf::RenderWindow* window)
 		b->btn.Draw(window, &shader);
 	}
 }
-void Menu::Resize(sf::Vector2f size, sf::Vector2f scale)
+void Menu::Resize(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize) const
 {
+	sf::Vector2f scale(newSize.width / static_cast<float>(oldSize.x), newSize.height / static_cast<float>(oldSize.y));
+
 	auto textSize = buttons.size();
 	int i = 1;
 	for (auto& b : buttons) {
 		auto pos = b->btn.GetPosition();
 
-		auto rateX = pos.x / (size.x / scale.x);
-		auto rateY = pos.y / (size.y / scale.y);
+		auto rateX = pos.x / (newSize.width / scale.x);
+		auto rateY = pos.y / (newSize.height / scale.y);
 
 		//sf::Vector2f scaleBtn(btnSize.x * scale.x, btnSize.y * scale.y);
 		//sf::Vector2f posBtn(size.x / 2.f, (size.y / (textSize + 1.f)) * i);
-		sf::Vector2f posBtn(rateX * size.x, rateY * size.y);
+		sf::Vector2f posBtn(rateX * newSize.width, rateY * newSize.height);
 		b->btn.Resize(posBtn, scale);
 
 		//b->SetPosition(btnSize.x * scale.x, btnSize.y * scale.y);
@@ -67,6 +69,11 @@ void Menu::Resize(sf::Vector2f size, sf::Vector2f scale)
 
 void Menu::SetActive(sf::Vector2i mousePos) {
 	for (auto& b : selectedBtns) {
+
+		if (b->type == Consts::MenuButtonType::Text) {
+			continue;
+		}
+
 		b->btn.SetActive(mousePos);
 	}
 }
@@ -120,12 +127,16 @@ void Menu::CreateAllMenuButtons(sf::Vector2u size) {
 	credits.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
 		{defaultSize, font, "Back"}, Consts::MenuPlace::Credits, Consts::MenuButtonType::Back
 		}));
+	credits.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
+		{defaultSize, font, "Made by Gogousek"}, Consts::MenuPlace::Credits, Consts::MenuButtonType::Text
+		}));
 
 	credits[0]->btn.SetPosition(size.x / 2.f, size.y / 5.f * 4.f);
+	credits[1]->btn.SetPosition(size.x / 2.f, size.y / 5.f * 2.f);
 
 
 
-	buttons.reserve(10);
+	buttons.reserve(11);
 	buttons.insert(buttons.end(), mainMenu.begin(), mainMenu.end());
 	buttons.insert(buttons.end(), setting.begin(), setting.end());
 	buttons.insert(buttons.end(), credits.begin(), credits.end());
@@ -168,6 +179,8 @@ void Menu::ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, ButtonWithT
 	case Consts::MenuButtonType::Back:
 		menuPlace = Consts::MenuPlace::MainMenu;
 		SwitchMenuLocation();
+		break;
+	case Consts::MenuButtonType::Text:
 		break;
 	default:
 		break;

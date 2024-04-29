@@ -58,7 +58,7 @@ Game::Game(sf::RenderWindow* w) : window(w), manager(w)
 	//	}
 	//}
 
-	//menu = std::make_unique<Menu>(window->getSize());
+	menu = std::make_unique<Menu>(window->getSize());
 }
 
 Game::~Game()
@@ -68,9 +68,6 @@ Game::~Game()
 
 void Game::Update()
 {
-
-
-
 	ProcessEvents(window, this);
 
 	//always reset time
@@ -104,9 +101,9 @@ void Game::Update()
 	//	UpdateGame();
 	//}
 
-	//if (menu->isOpen) {
-	//	UpdateMenu();
-	//}
+	if (menu->isOpen) {
+		UpdateMenu();
+	}
 }
 
 void Game::MakeActions()
@@ -211,7 +208,7 @@ void Game::UpdateGame()
 }
 void Game::UpdateMenu()
 {
-	/*auto viewSize = window->getView().getSize();
+	auto viewSize = window->getView().getSize();
 	auto col = sf::Color(0, 0, 0, 200);
 
 	sf::VertexArray lineStrip(sf::TriangleStrip, 4);
@@ -227,7 +224,7 @@ void Game::UpdateMenu()
 	lineStrip[3].position = sf::Vector2f(0.f, viewSize.y);
 	lineStrip[3].color = col;
 	window->draw(lineStrip);
-	menu->Draw(window);*/
+	menu->Draw(window);
 }
 
 
@@ -299,6 +296,12 @@ void Game::Collisions()
 			}
 		}
 	}*/
+}
+
+void Game::ResizeAll(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize)
+{
+	menu->Resize(newSize, oldSize);
+	manager.ResizeAll(newSize, oldSize);
 }
 
 bool Game::IsInsideWindow(sf::Vector2f pos)

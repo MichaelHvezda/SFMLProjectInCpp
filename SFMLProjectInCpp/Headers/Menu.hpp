@@ -12,7 +12,7 @@ public:
 	bool isClicked;
 public:
 	void Draw(sf::RenderWindow* window);
-	void Resize(sf::Vector2f size, sf::Vector2f scale);
+	void Resize(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize) const;
 	void SetActive(sf::Vector2i mousePos);
 	void SetPressed(sf::RenderWindow* window, Game* game, sf::Vector2i mousePos);
 public:

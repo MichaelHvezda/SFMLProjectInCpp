@@ -15,6 +15,7 @@ public:
 public:
 	void Update();
 	void Draw();
+	void ResizeAll(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize);
 
 	Entity CreateEntity();
 private:

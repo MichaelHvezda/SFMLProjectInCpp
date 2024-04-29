@@ -25,15 +25,15 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 		//	ProcessKeyReleased(window, event, game);
 		//	break;
 
-			//case sf::Event::MouseMoved:
-			//	ProcessMouseMoved(window, event, game);
-			//	break;
-			//case sf::Event::MouseButtonPressed:
-			//	ProcessMousePressed(window, event, game);
-			//	break;
-			//case sf::Event::MouseButtonReleased:
-			//	ProcessMouseReleased(window, event, game);
-			//	break;
+		case sf::Event::MouseMoved:
+			ProcessMouseMoved(window, event, game);
+			break;
+		case sf::Event::MouseButtonPressed:
+			ProcessMousePressed(window, event, game);
+			break;
+		case sf::Event::MouseButtonReleased:
+			ProcessMouseReleased(window, event, game);
+			break;
 
 		case sf::Event::Resized:
 		{
@@ -42,13 +42,13 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 			sf::FloatRect visibleArea(0.f, 0.f, static_cast<float>(event.size.width), static_cast<float>(event.size.height));
 			window->setView(sf::View(visibleArea));
 
-			auto scaleX = event.size.width / static_cast<float>(size.x);
-			auto scaleY = event.size.height / static_cast<float>(size.y);
+			sf::Vector2f scale(event.size.width / static_cast<float>(size.x), event.size.height / static_cast<float>(size.y));
 
 			auto defau = window->getDefaultView().getSize();
 			game->scale.x = event.size.width / static_cast<float>(defau.x);
 			game->scale.y = event.size.height / static_cast<float>(defau.y);
 
+			game->ResizeAll(event.size, size);
 			//{
 			//	auto pos = game->player->sprite->getPosition();
 			//	auto rateX = pos.x / static_cast<float>(size.x);
@@ -84,7 +84,6 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 			//	enemy->direction.y *= scaleY;
 			//}
 
-			//game->menu->Resize(sf::Vector2f(event.size.width, event.size.height), sf::Vector2f(scaleX, scaleY));
 
 			break;
 		}
