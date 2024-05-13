@@ -16,15 +16,25 @@ namespace Consts {
 	static const float ANIMATE_EVERY_X_SECOUND = 1 / 8.f;
 	static const float MOVE_EVERY_X_SECOUND = 1 / 60.f;
 	static const float COLDDOWN_TIME_SECOUND = 1.f;
-	static const float PI = static_cast<float>(atan(1) * 4.f);;
+	static const float PI = static_cast<float>(atan(1) * 4.f);
+
+	enum class UserAction {
+		None = 0,
+		Left,
+		Right,
+		Up,
+		Down,
+		Shoot,
+		Imortality,
+	};
 
 	enum class Direction : uint64_t
 	{
 		None = 0,
-		Left = 1ULL << 1,
-		Right = 1ULL << 2,
-		Up = 1ULL << 3,
-		Down = 1ULL << 4,
+		Left = 1ULL << static_cast<int>(UserAction::Left),
+		Right = 1ULL << static_cast<int>(UserAction::Right),
+		Up = 1ULL << static_cast<int>(UserAction::Up),
+		Down = 1ULL << static_cast<int>(UserAction::Down),
 	};
 
 	// << 64 seems not work, my day is ruined and my disappointment is immeasurable
@@ -32,8 +42,8 @@ namespace Consts {
 	enum class Action : uint64_t
 	{
 		None = 0,
-		Shoot = 1ULL << 63,
-		Imortality = 1ULL << 62,
+		Shoot = 1ULL << static_cast<int>(UserAction::Shoot),
+		Imortality = 1ULL << static_cast<int>(UserAction::Imortality),
 	};
 
 	enum class GraphicObjectType
