@@ -5,7 +5,7 @@
 #include <Entity.hpp>
 #include <Component.hpp>
 
-EntitiesManager::EntitiesManager(sf::RenderWindow* w, const float& gameTime) : window(w), gameTime(gameTime)
+EntitiesManager::EntitiesManager(sf::RenderWindow* w, const float& gameTime, const uint64_t& action) : window(w), gameTime(gameTime), action(action)
 {
 }
 
@@ -14,6 +14,41 @@ EntitiesManager::~EntitiesManager()
 }
 void EntitiesManager::Update()
 {
+	auto group = registry.view<PositionComponent, const TypeComponent>(entt::exclude<MomentumComponent>);
+
+	for (auto& entity : group)
+	{
+		auto [pos, typ] = group.get<PositionComponent, const TypeComponent>(entity);
+
+		if (typ.type == Consts::GraphicObjectType::Player) {
+			if (action & static_cast<uint64_t>(Consts::Direction::Left)) {
+				pos.position.x += -Consts::MOVE_SIZE * pos.scale.x;
+			}
+			if (action & static_cast<uint64_t>(Consts::Direction::Right)) {
+				pos.position.x += Consts::MOVE_SIZE * pos.scale.x;
+			}
+			if (action & static_cast<uint64_t>(Consts::Direction::Up)) {
+				pos.position.y += -Consts::MOVE_SIZE * pos.scale.y;
+			}
+			if (action & static_cast<uint64_t>(Consts::Direction::Down)) {
+				pos.position.y += Consts::MOVE_SIZE * pos.scale.y;
+			}
+		}
+
+		if (typ.type == Consts::GraphicObjectType::Enemy) {
+			//ai here
+		}
+	}
+
+	auto groupWithMom = registry.view<PositionComponent, const TypeComponent, MomentumComponent>();
+
+	for (auto& entity : groupWithMom)
+	{
+		auto [pos, typ, mom] = groupWithMom.get<PositionComponent, const TypeComponent, MomentumComponent>(entity);
+
+		pos.position.x = pos.position.x + (mom.momentum.x * pos.scale.x);
+		pos.position.y = pos.position.y + (mom.momentum.y * pos.scale.y);
+	}
 }
 void EntitiesManager::Draw()
 {

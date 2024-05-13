@@ -3,7 +3,6 @@
 
 void ProcessEvents(sf::RenderWindow* window, Game* game)
 {
-
 	sf::Event event;
 	auto size = window->getSize();
 	while (window->pollEvent(event))
@@ -18,12 +17,12 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 			break;
 
 			// key pressed
-		//case sf::Event::KeyPressed:
-		//	ProcessKeyPressed(window, event, game);
-		//	break;
-		//case sf::Event::KeyReleased:
-		//	ProcessKeyReleased(window, event, game);
-		//	break;
+		case sf::Event::KeyPressed:
+			ProcessKeyPressed(window, event, game);
+			break;
+		case sf::Event::KeyReleased:
+			ProcessKeyReleased(window, event, game);
+			break;
 
 		case sf::Event::MouseMoved:
 			ProcessMouseMoved(window, event, game);

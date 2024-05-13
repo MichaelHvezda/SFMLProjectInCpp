@@ -2,11 +2,11 @@
 #include <Component.hpp>
 #include <Entity.hpp>
 
-Game::Game(sf::RenderWindow* w) : window(w), manager(w, gameTime)
+Game::Game(sf::RenderWindow* w) : window(w), manager(w, gameTime, actions)
 {
 	auto ent = manager.CreateEntity();
 
-	auto healt = ent.AddComponents<HealthComponent>(10.f);
+	auto& healt = ent.AddComponents<HealthComponent>(10.f);
 	//auto healt = ent.AddComponents<HealthComponent>(0.f);
 	try
 	{
@@ -25,14 +25,15 @@ Game::Game(sf::RenderWindow* w) : window(w), manager(w, gameTime)
 
 	sf::Sprite sprite;
 	//LoadTexture(texture);
-	auto texturaWithProps = textures[Consts::GraphicObjectType::Player];
+	auto& texturaWithProps = textures[Consts::GraphicObjectType::Player];
 
 	sprite.setTexture(texturaWithProps->texture);
 
 	auto& const textProps = texturaWithProps->props;
 
-	auto spriteComp = ent.AddComponents<SpriteComponent>(sprite);
-	auto animionComp = ent.AddComponents<AnimationComponent>(sf::Vector2i(textProps.sizeX, textProps.sizeY), textProps.haveDeadAnimation, textProps.animationsCount, gameTime);
+	auto& spriteComp = ent.AddComponents<SpriteComponent>(sprite);
+	auto& typeComp = ent.AddComponents<TypeComponent>(texturaWithProps->props.type);
+	auto& animionComp = ent.AddComponents<AnimationComponent>(sf::Vector2i(textProps.sizeX, textProps.sizeY), textProps.haveDeadAnimation, textProps.animationsCount, gameTime);
 	ent.AddComponents<PositionComponent>(sf::Vector2f(255.f, 255.f), spriteComp.sprite.getScale(), sf::Vector2u(texturaWithProps->props.sizeX, texturaWithProps->props.sizeY));
 
 
@@ -79,11 +80,9 @@ void Game::Update()
 	int moveFrameCnt = static_cast<int>((gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND);
 
 
-	manager.Draw();
 
 
-	gameTime += renderTime;
-	moveFrameCount = moveFrameCnt;
+
 	//if (!menu->isOpen) {
 	//	gameTime += renderTime;
 	//	if (player->actionColdDown > 0)
@@ -100,9 +99,12 @@ void Game::Update()
 	//}
 
 
-	//if (isGameStart) {
-	//	UpdateGame();
-	//}
+	if (isGameStart) {
+		manager.Update();
+		manager.Draw();
+		gameTime += renderTime;
+		moveFrameCount = moveFrameCnt;
+	}
 
 	if (menu->isOpen) {
 		UpdateMenu();

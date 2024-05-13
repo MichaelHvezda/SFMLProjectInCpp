@@ -2,9 +2,9 @@
 void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* game)
 {
 
-	//Logger("Key pressed: ", event.key.scancode, event.key.code);
+	Logger("Key pressed: ", event.key.scancode, event.key.code);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (event.key.code == sf::Keyboard::Escape)
 	{
 		//return coz it not nesesery process others
 		if (!game->menu->isOpen) {
@@ -16,42 +16,42 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 		return;
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	if (event.key.code == sf::Keyboard::P)
 	{
 		game->menu->isOpen = !game->menu->isOpen;
-		game->isGameStart = true;
-		Logger("window close by ESCAPE key pressed");
+		game->isGameStart = !game->isGameStart;
+		Logger("window close by P key pressed");
 	}
-
 	//game->player.directions.clear();
-	/*for (const auto& maps : Consts::KeyActionMap)
+	for (const auto& maps : Consts::KeyActionMap)
 	{
-		SetActions(maps, game->player->actions);
+		SetActions(event, maps, game->actions);
 	}
 
 	for (const auto& maps : Consts::KeyDirectionMap)
 	{
-		SetActions(maps, game->player->directions);
-	}*/
+		SetActions(event, maps, game->actions);
+	}
+	Logger("preseerd: ", game->actions);
 	//SetActions(game);
 }
 
 void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* game)
 {
+	Logger("Key released: ", event.key.scancode, event.key.code);
 
-	//Logger("Key released: ", event.key.scancode, event.key.code);
+	for (const auto& maps : Consts::KeyActionMap)
+	{
+		EraseActions(event, maps, game->actions);
+	}
 
-	//for (const auto& maps : Consts::KeyActionMap)
-	//{
-	//	EraseActions(maps, game->player->actions);
-	//}
+	//game->player.directions.clear();
+	for (const auto& maps : Consts::KeyDirectionMap)
+	{
+		EraseActions(event, maps, game->actions);
+	}
 
-	////game->player.directions.clear();
-	//for (const auto& maps : Consts::KeyDirectionMap)
-	//{
-	//	EraseActions(maps, game->player->directions);
-	//}
-
+	Logger("relesed: ", game->actions);
 }
 
 void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* game)
@@ -86,50 +86,27 @@ void ProcessMouseReleased(sf::RenderWindow* window, const sf::Event& event, Game
 }
 
 template<typename T>
-void SetActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list)
+void SetActions(const sf::Event& event, const Consts::KeyMap<T>& keyMap, uint64_t& action)
 {
 	for (const auto& key : keyMap.keys)
 	{
-		if (sf::Keyboard::isKeyPressed(key))
+		if (event.key.code == key)
 		{
-
-			bool exist = false;
-
-			for (auto& dir : list)
-			{
-				if (dir == keyMap.action)
-				{
-					exist = true;
-					break;
-				}
-			}
-
-			if (!exist)
-				list.push_back(keyMap.action);
+			action = action | static_cast<uint64_t>(keyMap.action);
+			return;
 		}
 	}
 }
 
 template<typename T>
-void EraseActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list)
+void EraseActions(const sf::Event& event, const Consts::KeyMap<T>& keyMap, uint64_t& action)
 {
-	int i = 0;
-	for (auto& dir : list)
+	for (const auto& key : keyMap.keys)
 	{
-		if (dir == keyMap.action)
+		if (event.key.code == key)
 		{
-			bool del = false;
-			for (const auto& key : keyMap.keys)
-			{
-				if (sf::Keyboard::isKeyPressed(key))
-				{
-					del = true;
-				}
-			}
-			if (!del)
-				list.erase(list.begin() + i);
+			action = action & (~static_cast<uint64_t>(keyMap.action));
+			return;
 		}
-		i++;
 	}
-
 }

@@ -28,9 +28,10 @@ public:
 	std::unique_ptr<Menu> menu;
 	sf::Clock clock;
 	sf::Vector2f scale;
-	float gameTime;
-	int moveFrameCount;
-	bool isGameStart;
+	float gameTime = 0;
+	int moveFrameCount = 0;
+	bool isGameStart = false;
+	uint64_t actions = 0;
 public:
 	Game(sf::RenderWindow* w);
 	virtual ~Game();

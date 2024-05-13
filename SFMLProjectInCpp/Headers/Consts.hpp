@@ -18,14 +18,22 @@ namespace Consts {
 	static const float COLDDOWN_TIME_SECOUND = 1.f;
 	static const float PI = static_cast<float>(atan(1) * 4.f);;
 
-	enum class Direction
+	enum class Direction : uint64_t
 	{
-		None = 0, Left, Right, Up, Down
+		None = 0,
+		Left = 1ULL << 1,
+		Right = 1ULL << 2,
+		Up = 1ULL << 3,
+		Down = 1ULL << 4,
 	};
 
-	enum class Action
+	// << 64 seems not work, my day is ruined and my disappointment is immeasurable
+
+	enum class Action : uint64_t
 	{
-		None = 0, Shoot, Imortality
+		None = 0,
+		Shoot = 1ULL << 63,
+		Imortality = 1ULL << 62,
 	};
 
 	enum class GraphicObjectType
@@ -42,7 +50,7 @@ namespace Consts {
 		Back, Play, Exit, Options, Credits, Text
 	};
 
-	template<typename T>
+	template<typename T = uint64_t>
 	struct KeyMap
 	{
 	public:

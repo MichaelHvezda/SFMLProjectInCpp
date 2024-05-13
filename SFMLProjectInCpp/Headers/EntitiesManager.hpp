@@ -10,7 +10,7 @@ class Entity;
 class EntitiesManager
 {
 public:
-	EntitiesManager(sf::RenderWindow* w, const float& gameTime);
+	EntitiesManager(sf::RenderWindow* w, const float& gameTime, const uint64_t& action);
 	~EntitiesManager();
 public:
 	void Update();
@@ -22,6 +22,7 @@ private:
 	entt::registry registry;
 	sf::RenderWindow* window;
 	const float& gameTime;
+	const uint64_t& action;
 private:
 	friend class Entity;
 };

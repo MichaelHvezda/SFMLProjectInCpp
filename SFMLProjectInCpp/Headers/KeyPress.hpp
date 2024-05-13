@@ -14,7 +14,7 @@ void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* g
 void ProcessMousePressed(sf::RenderWindow* window, const sf::Event& event, Game* game);
 void ProcessMouseReleased(sf::RenderWindow* window, const sf::Event& event, Game* game);
 template<typename T>
-void SetActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list);
+void SetActions(const sf::Event& event, const Consts::KeyMap<T>& keyMap, uint64_t& action);
 template<typename T>
-void EraseActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list);
+void EraseActions(const sf::Event& event, const Consts::KeyMap<T>& keyMap, uint64_t& action);
 #endif // EVENTS_H
