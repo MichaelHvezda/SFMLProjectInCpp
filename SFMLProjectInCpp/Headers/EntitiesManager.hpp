@@ -13,10 +13,10 @@ public:
 	EntitiesManager(sf::RenderWindow* w, const float& gameTime, const uint64_t& action);
 	~EntitiesManager();
 public:
-	void Update();
+	void Update(float renderTime);
 	void Draw();
 	void ResizeAll(const sf::Event::SizeEvent& newSize, sf::Vector2u oldSize);
-
+	bool IsInsideWindow(sf::Vector2f pos);
 	Entity CreateEntity();
 private:
 	entt::registry registry;

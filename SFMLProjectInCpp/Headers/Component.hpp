@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <Consts.hpp>
+#include <Textures.hpp>
 
 
 struct SpriteComponent
@@ -34,17 +35,18 @@ struct MomentumComponent
 
 struct ShootComponent
 {
-	sf::Sprite shootSprite;
+	std::shared_ptr<TextureWithProperties> shootTextureWithProps;
 	float damage;
 	float actionColdDown;
 };
 
 struct HealthComponent
 {
+	float health;
+	bool isAlive = true;
 	HealthComponent() = default;
 	HealthComponent(const HealthComponent&) = default;
 	HealthComponent(const float health) :health(health) {};
-	float health;
 };
 
 struct AnimationComponent
@@ -71,4 +73,5 @@ struct TypeComponent
 	TypeComponent(const TypeComponent&) = default;
 	TypeComponent(Consts::GraphicObjectType type) :type(type) {};
 };
+
 #endif

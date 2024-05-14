@@ -28,10 +28,10 @@ public:
 		return manager->registry.emplace<T>(entity, std::forward<Args>(components)...);
 	}
 
-	template<typename T>
-	T& GetComponents()
+	template<typename... T>
+	decltype(auto) GetComponents()
 	{
-		return manager->registry.get<T>(entity);
+		return manager->registry.get<T...>(entity);
 	}
 
 	template<typename T>

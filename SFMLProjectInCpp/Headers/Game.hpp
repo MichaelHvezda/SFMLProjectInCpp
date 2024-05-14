@@ -27,7 +27,7 @@ public:
 	sf::RenderWindow* window;
 	std::unique_ptr<Menu> menu;
 	sf::Clock clock;
-	sf::Vector2f scale;
+	sf::Vector2f scale{ 1,1 };
 	float gameTime = 0;
 	int moveFrameCount = 0;
 	bool isGameStart = false;

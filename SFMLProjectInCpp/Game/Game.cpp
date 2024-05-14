@@ -26,11 +26,13 @@ Game::Game(sf::RenderWindow* w) : window(w), manager(w, gameTime, actions)
 	sf::Sprite sprite;
 	//LoadTexture(texture);
 	auto& texturaWithProps = textures[Consts::GraphicObjectType::Player];
+	auto& texturaWithPropsShoot = textures[Consts::GraphicObjectType::PlayerProjectile];
 
 	sprite.setTexture(texturaWithProps->texture);
 
 	auto& const textProps = texturaWithProps->props;
 
+	auto& shootComp = ent.AddComponents<ShootComponent>(texturaWithPropsShoot, 1.f, 1.f);
 	auto& spriteComp = ent.AddComponents<SpriteComponent>(sprite);
 	auto& typeComp = ent.AddComponents<TypeComponent>(texturaWithProps->props.type);
 	auto& animionComp = ent.AddComponents<AnimationComponent>(sf::Vector2i(textProps.sizeX, textProps.sizeY), textProps.haveDeadAnimation, textProps.animationsCount, gameTime);
@@ -79,28 +81,8 @@ void Game::Update()
 	int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
 	int moveFrameCnt = static_cast<int>((gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND);
 
-
-
-
-
-	//if (!menu->isOpen) {
-	//	gameTime += renderTime;
-	//	if (player->actionColdDown > 0)
-	//	{
-	//		player->actionColdDown -= renderTime;
-	//	}
-	//	for (const auto& enemy : enemies)
-	//	{
-	//		if (enemy->actionColdDown > 0)
-	//		{
-	//			enemy->actionColdDown -= renderTime;
-	//		}
-	//	}
-	//}
-
-
 	if (isGameStart) {
-		manager.Update();
+		manager.Update(renderTime);
 		manager.Draw();
 		gameTime += renderTime;
 		moveFrameCount = moveFrameCnt;
