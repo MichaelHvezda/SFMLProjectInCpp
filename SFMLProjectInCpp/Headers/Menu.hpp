@@ -21,7 +21,7 @@ public:
 
 private:
 	std::vector<std::shared_ptr<ButtonWithType>> buttons;
-	std::vector<std::shared_ptr<ButtonWithType>> selectedBtns;
+	std::vector<std::shared_ptr<ButtonWithType>> selectedBtns; // yes i agree it is not good name for its purpuse :) but too lazy to refactor now
 	Consts::MenuPlace menuPlace;
 	sf::Font font;
 	sf::Shader shader;

@@ -39,7 +39,7 @@ namespace Consts {
 	};
 	enum class MenuButtonType
 	{
-		Back, Play, Exit, Options, Credits
+		Back, Play, Exit, Options, Credits, Text
 	};
 
 	template<typename T>

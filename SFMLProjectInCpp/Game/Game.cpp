@@ -59,7 +59,7 @@ void Game::Update()
 
 	//always reset time
 	auto renderTime = clock.restart().asSeconds();
-
+	Logger("Render time: ", renderTime);
 	if (!menu->isOpen) {
 		gameTime += renderTime;
 		if (player->actionColdDown > 0)

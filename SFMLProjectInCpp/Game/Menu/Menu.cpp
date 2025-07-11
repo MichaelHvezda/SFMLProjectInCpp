@@ -33,7 +33,6 @@ Menu::~Menu()
 
 void Menu::Draw(sf::RenderWindow* window)
 {
-	int i = 0;
 	for (auto& b : selectedBtns) {
 		//if (i == 0)
 		//{
@@ -67,6 +66,10 @@ void Menu::Resize(sf::Vector2f size, sf::Vector2f scale)
 
 void Menu::SetActive(sf::Vector2i mousePos) {
 	for (auto& b : selectedBtns) {
+		if (b->type == Consts::MenuButtonType::Text) {
+
+			continue;
+		}
 		b->btn.SetActive(mousePos);
 	}
 }
@@ -79,8 +82,6 @@ void Menu::SetPressed(sf::RenderWindow* window, Game* game, sf::Vector2i mousePo
 		}
 	}
 }
-
-
 
 void Menu::CreateAllMenuButtons(sf::Vector2u size) {
 	auto defaultSize = sf::Vector2f(100, 50);
@@ -120,10 +121,12 @@ void Menu::CreateAllMenuButtons(sf::Vector2u size) {
 	credits.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
 		{defaultSize, font, "Back"}, Consts::MenuPlace::Credits, Consts::MenuButtonType::Back
 		}));
+	credits.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
+		{defaultSize, font, "Made by Gogousek"}, Consts::MenuPlace::Credits, Consts::MenuButtonType::Text
+		}));
 
 	credits[0]->btn.SetPosition(size.x / 2.f, size.y / 5.f * 4.f);
-
-
+	credits[1]->btn.SetPosition(size.x / 2.f, size.y / 5.f * 2.f);
 
 	buttons.reserve(mainMenu.size() + setting.size() + credits.size());
 	buttons.insert(buttons.end(), mainMenu.begin(), mainMenu.end());
@@ -166,6 +169,8 @@ void Menu::ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, ButtonWithT
 	case Consts::MenuButtonType::Back:
 		menuPlace = Consts::MenuPlace::MainMenu;
 		SwitchMenuLocation();
+		break;
+	case Consts::MenuButtonType::Text:
 		break;
 	default:
 		break;
