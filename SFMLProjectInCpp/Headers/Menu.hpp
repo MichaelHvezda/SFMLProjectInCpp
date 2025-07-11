@@ -12,7 +12,7 @@ public:
 	bool isClicked;
 public:
 	void Draw(sf::RenderWindow* window);
-	void Resize(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize) const;
+	void Resize(const sf::Event::SizeEvent& newSize, sf::Vector2u oldSize) const;
 	void SetActive(sf::Vector2i mousePos);
 	void SetPressed(sf::RenderWindow* window, Game* game, sf::Vector2i mousePos);
 public:
@@ -29,7 +29,7 @@ private:
 private:
 	void CreateAllMenuButtons(sf::Vector2u size);
 	void SwitchMenuLocation();
-	void ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, ButtonWithType& btnWithType);
+	void ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, const ButtonWithType& btnWithType);
 };
 
 

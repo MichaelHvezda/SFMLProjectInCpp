@@ -38,32 +38,6 @@ Game::Game(sf::RenderWindow* w) : window(w), manager(w, gameTime, actions)
 	auto& animionComp = ent.AddComponents<AnimationComponent>(sf::Vector2i(textProps.sizeX, textProps.sizeY), textProps.haveDeadAnimation, textProps.animationsCount, gameTime);
 	ent.AddComponents<PositionComponent>(sf::Vector2f(255.f, 255.f), spriteComp.sprite.getScale(), sf::Vector2u(texturaWithProps->props.sizeX, texturaWithProps->props.sizeY));
 
-
-
-	//for (auto& text : textures) {
-	//	if (text->props.type == Consts::GraphicObjectType::Player)
-	//	{
-	//		player = std::make_unique<Player>(text);
-	//		break;
-	//	}
-	//}
-	//scale.x = 1.0f;
-	//scale.y = 1.0f;
-	////Textures.push_back(std::make_unique<sf::Texture>());
-	////Sprites.push_back(std::make_unique<sf::Sprite>());
-
-	////CreateSprite(Sprites[0], Textures[0]);
-	//player->SetDefaultPosition(window);
-
-	//for (auto& text : textures)
-	//{
-	//	if (text->props.type == Consts::GraphicObjectType::Enemy)
-	//	{
-	//		enemies.push_back(std::make_shared<Enemy>(text, sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f), gameTime, sf::Vector2f(0.f, -Consts::MOVE_SIZE), scale));
-	//		break;
-	//	}
-	//}
-
 	menu = std::make_unique<Menu>(window->getSize());
 }
 
@@ -93,106 +67,6 @@ void Game::Update()
 	}
 }
 
-void Game::MakeActions()
-{
-	/*for (const auto& act : player->actions)
-	{
-		if (player->actionColdDown > 0.f)
-		{
-			return;
-		}
-		switch (act)
-		{
-		case Consts::Action::Shoot:
-			for (auto& text : textures)
-			{
-				if (text->props.type == Consts::GraphicObjectType::PlayerProjectile)
-				{
-					projectiles.push_back(std::make_shared<Projectile>(text, player->sprite->getPosition(), gameTime, sf::Vector2f(0.f * scale.x, -Consts::MOVE_SIZE * scale.y), scale, 2.f, 2.f));
-					player->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
-					break;
-				}
-			}
-			break;
-		default:
-			break;
-		}
-	}
-	player->actions.clear();*/
-}
-
-
-void Game::UpdateGame()
-{
-	//int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
-	//int moveFrameCnt = static_cast<int>((gameTime - static_cast<int>(gameTime)) / Consts::MOVE_EVERY_X_SECOUND);
-
-	//for (const auto& proj : projectiles)
-	//{
-
-	//	if (moveFrameCount != moveFrameCnt)
-	//	{
-	//		proj->Move();
-	//	}
-
-	//	proj->Draw(gameTime, window);
-
-	//	if (IsInsideWindow(proj->sprite->getPosition()) && proj->healt > 0)
-	//	{
-	//		proj->healt = 0;
-	//		proj->bornTime = gameTime;
-	//	}
-	//}
-	//for (const auto& enemy : enemies)
-	//{
-
-	//	if (moveFrameCount != moveFrameCnt)
-	//	{
-	//		enemy->Move(window->getSize(), player->sprite->getPosition());
-	//	}
-
-	//	enemy->Draw(gameTime, window);
-
-	//	if (enemy->actionColdDown <= 0)
-	//	{
-	//		for (auto& text : textures)
-	//		{
-	//			if (text->props.type == Consts::GraphicObjectType::Projectile)
-	//			{
-	//				auto playerPos = player->sprite->getPosition();
-	//				auto pos = enemy->sprite->getPosition() - playerPos;
-	//				auto norm = (abs(pos.x) + abs(pos.y)) * -1.f;
-	//				pos.x = pos.x / norm;
-	//				pos.y = pos.y / norm;
-	//				//Logger(pos.x, " ", pos.y);
-	//				projectiles.push_back(std::make_shared<Projectile>(text, enemy->sprite->getPosition(), gameTime, sf::Vector2f(pos.x * Consts::MOVE_SIZE * scale.x, pos.y * Consts::MOVE_SIZE * scale.y), scale));
-	//				enemy->actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
-	//				break;
-	//			}
-	//		}
-	//	}
-
-	//	if (IsInsideWindow(enemy->sprite->getPosition()) && enemy->healt > 0)
-	//	{
-	//		enemy->healt = 0;
-	//		enemy->bornTime = gameTime;
-	//	}
-	//}
-
-	//if (moveFrameCount != moveFrameCnt)
-	//{
-	//	player->Move(window->getSize(), scale);
-	//}
-	//player->Draw(gameTime, window);
-
-	//std::erase_if(projectiles, [](const std::shared_ptr<Projectile>& p) {return p->isAlive == false; });
-
-	//std::erase_if(enemies, [](const std::shared_ptr<Enemy>& p) {return p->isAlive == false; });
-
-	//moveFrameCount = moveFrameCnt;
-	//MakeActions();
-	//Collisions();
-}
 void Game::UpdateMenu()
 {
 	auto viewSize = window->getView().getSize();
@@ -214,84 +88,13 @@ void Game::UpdateMenu()
 	menu->Draw(window);
 }
 
-
-void Game::Collisions()
-{
-	/*for (auto& projectile : projectiles)
-	{
-		if (projectile->healt <= 0)
-		{
-			continue;
-		}
-		if (projectile->sprite->getGlobalBounds().intersects(player->sprite->getGlobalBounds()) && projectile->texture->props.type != Consts::GraphicObjectType::PlayerProjectile)
-		{
-			player->healt -= projectile->damage;
-			projectile->healt -= player->damage;
-
-			if (projectile->healt <= 0)
-			{
-				projectile->bornTime = gameTime;
-			}
-
-			if (player->healt <= 0)
-			{
-				player->bornTime = gameTime;
-			}
-			Logger("colision projectiles");
-		}
-		for (auto& projectileAnother : projectiles)
-		{
-			if (projectileAnother->healt <= 0)
-			{
-				continue;
-			}
-
-			if (projectile->sprite->getGlobalBounds().intersects(projectileAnother->sprite->getGlobalBounds()) && projectile->texture->props.type != projectileAnother->texture->props.type)
-			{
-				projectileAnother->healt -= projectile->damage;
-				projectile->healt -= projectileAnother->damage;
-
-				if (projectile->healt <= 0)
-				{
-					projectile->bornTime = gameTime;
-				}
-
-				if (projectileAnother->healt <= 0)
-				{
-					projectileAnother->bornTime = gameTime;
-				}
-				Logger("colision projectiles");
-			}
-		}
-		for (auto& enemy : enemies)
-		{
-			if (projectile->sprite->getGlobalBounds().intersects(enemy->sprite->getGlobalBounds()) && projectile->texture->props.type != Consts::GraphicObjectType::Projectile)
-			{
-				enemy->healt -= projectile->damage;
-				projectile->healt -= enemy->damage;
-
-				if (projectile->healt <= 0)
-				{
-					projectile->bornTime = gameTime;
-				}
-
-				if (enemy->healt <= 0)
-				{
-					enemy->bornTime = gameTime;
-				}
-				Logger("colision enemy");
-			}
-		}
-	}*/
-}
-
 void Game::ResizeAll(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize)
 {
 	menu->Resize(newSize, oldSize);
 	manager.ResizeAll(newSize, oldSize);
 }
 
-bool Game::IsInsideWindow(sf::Vector2f pos)
+bool Game::IsInsideWindow(const sf::Vector2f pos) const
 {
 	auto wSize = window->getSize();
 

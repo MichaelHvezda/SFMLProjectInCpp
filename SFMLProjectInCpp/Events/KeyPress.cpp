@@ -2,7 +2,7 @@
 void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* game)
 {
 
-	Logger("Key pressed: ", event.key.scancode, event.key.code);
+	//Logger("Key pressed: ", event.key.scancode, event.key.code);
 
 	if (event.key.code == sf::Keyboard::Escape)
 	{
@@ -20,7 +20,7 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 	{
 		game->menu->isOpen = !game->menu->isOpen;
 		game->isGameStart = !game->isGameStart;
-		Logger("window close by P key pressed");
+		//Logger("window close by P key pressed");
 	}
 	//game->player.directions.clear();
 	for (const auto& maps : Consts::KeyActionMap)
@@ -32,13 +32,13 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 	{
 		SetActions(event, maps, game->actions);
 	}
-	Logger("preseerd: ", game->actions);
+	//Logger("preseerd: ", game->actions);
 	//SetActions(game);
 }
 
 void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* game)
 {
-	Logger("Key released: ", event.key.scancode, event.key.code);
+	//Logger("Key released: ", event.key.scancode, event.key.code);
 
 	for (const auto& maps : Consts::KeyActionMap)
 	{
@@ -51,7 +51,7 @@ void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* 
 		EraseActions(event, maps, game->actions);
 	}
 
-	Logger("relesed: ", game->actions);
+	//Logger("relesed: ", game->actions);
 }
 
 void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* game)

@@ -48,42 +48,6 @@ void ProcessEvents(sf::RenderWindow* window, Game* game)
 			game->scale.y = event.size.height / static_cast<float>(defau.y);
 
 			game->ResizeAll(event.size, size);
-			//{
-			//	auto pos = game->player->sprite->getPosition();
-			//	auto rateX = pos.x / static_cast<float>(size.x);
-			//	auto rateY = pos.y / static_cast<float>(size.y);
-
-			//	game->player->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
-			//	game->player->sprite->scale(scaleX, scaleY);
-			//}
-
-			//for (auto& proj : game->projectiles)
-			//{
-			//	auto pos = proj->sprite->getPosition();
-			//	auto rateX = pos.x / static_cast<float>(size.x);
-			//	auto rateY = pos.y / static_cast<float>(size.y);
-
-			//	proj->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
-			//	proj->sprite->scale(scaleX, scaleY);
-
-			//	proj->direction.x *= scaleX;
-			//	proj->direction.y *= scaleY;
-			//}
-
-			//for (auto& enemy : game->enemies)
-			//{
-			//	auto pos = enemy->sprite->getPosition();
-			//	auto rateX = pos.x / static_cast<float>(size.x);
-			//	auto rateY = pos.y / static_cast<float>(size.y);
-
-			//	enemy->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
-			//	enemy->sprite->scale(scaleX, scaleY);
-
-			//	enemy->direction.x *= scaleX;
-			//	enemy->direction.y *= scaleY;
-			//}
-
-
 			break;
 		}
 		// we don't process other types of events

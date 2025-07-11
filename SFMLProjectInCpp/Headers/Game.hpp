@@ -37,12 +37,9 @@ public:
 	virtual ~Game();
 public:
 	void Update();
-	void MakeActions();
-	void Collisions();
 	void ResizeAll(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize);
 private:
-	bool IsInsideWindow(sf::Vector2f pos);
-	void UpdateGame();
+	bool IsInsideWindow(const sf::Vector2f pos) const;
 	void UpdateMenu();
 
 private:

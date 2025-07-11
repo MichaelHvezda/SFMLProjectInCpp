@@ -44,7 +44,7 @@ void Menu::Draw(sf::RenderWindow* window)
 		b->btn.Draw(window, &shader);
 	}
 }
-void Menu::Resize(sf::Event::SizeEvent& newSize, sf::Vector2u oldSize) const
+void Menu::Resize(const sf::Event::SizeEvent& newSize, sf::Vector2u oldSize) const
 {
 	sf::Vector2f scale(newSize.width / static_cast<float>(oldSize.x), newSize.height / static_cast<float>(oldSize.y));
 
@@ -115,7 +115,6 @@ void Menu::CreateAllMenuButtons(sf::Vector2u size) {
 		i++;
 	}
 
-
 	std::vector<std::shared_ptr<ButtonWithType>> setting;
 	setting.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
 		{defaultSize, font, "Back"}, Consts::MenuPlace::Options, Consts::MenuButtonType::Back
@@ -134,20 +133,17 @@ void Menu::CreateAllMenuButtons(sf::Vector2u size) {
 	credits[0]->btn.SetPosition(size.x / 2.f, size.y / 5.f * 4.f);
 	credits[1]->btn.SetPosition(size.x / 2.f, size.y / 5.f * 2.f);
 
-
-
 	buttons.reserve(11);
 	buttons.insert(buttons.end(), mainMenu.begin(), mainMenu.end());
 	buttons.insert(buttons.end(), setting.begin(), setting.end());
 	buttons.insert(buttons.end(), credits.begin(), credits.end());
-
-
 }
 
 void Menu::SwitchMenuLocation() {
 	selectedBtns.clear();
 	for (const auto& btn : buttons)
 	{
+		btn->btn.isSelected = false;
 		if (btn->place == menuPlace)
 		{
 			selectedBtns.push_back(btn);
@@ -155,9 +151,7 @@ void Menu::SwitchMenuLocation() {
 	}
 }
 
-void Menu::ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, ButtonWithType& btnWithType) {
-
-
+void Menu::ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, const ButtonWithType& btnWithType) {
 	switch (btnWithType.type)
 	{
 	case Consts::MenuButtonType::Play:

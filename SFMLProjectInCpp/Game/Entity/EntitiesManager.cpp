@@ -51,23 +51,11 @@ void EntitiesManager::Update(float renderTime)
 				if (shoot.actionColdDown > 0) {
 					shoot.actionColdDown -= renderTime;
 				}
-				Logger("Cooldoutn ", shoot.actionColdDown);
+
 				if (shoot.actionColdDown <= 0 && (action & static_cast<uint64_t>(Consts::Action::Shoot))) {
 
 					shoot.actionColdDown = Consts::COLDDOWN_TIME_SECOUND;
-					auto shootProjectil = CreateEntity();
-					shootProjectil.AddComponents<HealthComponent>(1.f);
-					sf::Sprite sprite;
-					sprite.setTexture(shoot.shootTextureWithProps->texture);
-					auto& spriteComp = shootProjectil.AddComponents<SpriteComponent>(sprite);
-
-					auto& const textProps = shoot.shootTextureWithProps->props;
-					auto& typeComp = shootProjectil.AddComponents<TypeComponent>(textProps.type);
-
-					shootProjectil.AddComponents<AnimationComponent>(sf::Vector2i(textProps.sizeX, textProps.sizeY), textProps.haveDeadAnimation, textProps.animationsCount, gameTime);
-
-					shootProjectil.AddComponents<PositionComponent>(sf::Vector2f(pos.position.x, pos.position.y), pos.scale, sf::Vector2u(textProps.sizeX, textProps.sizeY));
-					shootProjectil.AddComponents<MomentumComponent>(sf::Vector2f(0.f, -Consts::MOVE_SIZE));
+					CreateShoot(shoot, pos);
 				}
 			}
 		}
@@ -104,7 +92,6 @@ void EntitiesManager::Draw()
 		int animationPos = static_cast<int>((gameTime - ani.bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
 		int animation = animationPos % ani.animationsCount;
 
-
 		spr.sprite.setPosition(pos.position);
 		spr.sprite.setScale(pos.scale);
 
@@ -134,7 +121,7 @@ void EntitiesManager::Draw()
 	}
 }
 
-void EntitiesManager::ResizeAll(const sf::Event::SizeEvent& newSize, sf::Vector2u oldSize)
+void EntitiesManager::ResizeAll(const sf::Event::SizeEvent& newSize, const sf::Vector2u& oldSize)
 {
 	auto group = registry.view<PositionComponent>();
 
@@ -166,7 +153,7 @@ Entity EntitiesManager::CreateEntity()
 	return ent;
 }
 
-bool EntitiesManager::IsInsideWindow(sf::Vector2f pos)
+bool EntitiesManager::IsInsideWindow(const sf::Vector2f& pos) const
 {
 	auto wSize = window->getSize();
 
@@ -177,4 +164,21 @@ bool EntitiesManager::IsInsideWindow(sf::Vector2f pos)
 		return true;
 
 	return false;
+}
+
+void EntitiesManager::CreateShoot(const ShootComponent& shoot, const PositionComponent& pos)
+{
+	auto shootProjectil = CreateEntity();
+	shootProjectil.AddComponents<HealthComponent>(1.f);
+	sf::Sprite sprite;
+	sprite.setTexture(shoot.shootTextureWithProps->texture);
+	auto& spriteComp = shootProjectil.AddComponents<SpriteComponent>(sprite);
+
+	auto& const textProps = shoot.shootTextureWithProps->props;
+	auto& typeComp = shootProjectil.AddComponents<TypeComponent>(textProps.type);
+
+	shootProjectil.AddComponents<AnimationComponent>(sf::Vector2i(textProps.sizeX, textProps.sizeY), textProps.haveDeadAnimation, textProps.animationsCount, gameTime);
+
+	shootProjectil.AddComponents<PositionComponent>(sf::Vector2f(pos.position.x, pos.position.y), pos.scale, sf::Vector2u(textProps.sizeX, textProps.sizeY));
+	shootProjectil.AddComponents<MomentumComponent>(sf::Vector2f(0.f, -Consts::MOVE_SIZE));
 }

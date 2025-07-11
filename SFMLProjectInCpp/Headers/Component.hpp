@@ -25,7 +25,7 @@ struct PositionComponent
 
 	PositionComponent() = default;
 	PositionComponent(const PositionComponent&) = default;
-	PositionComponent(sf::Vector2f position, sf::Vector2f scale, sf::Vector2u baseSize) :position(position), scale(scale), baseSize(baseSize) {};
+	PositionComponent(sf::Vector2f position, sf::Vector2f scale, sf::Vector2u baseSize) : position(position), scale(scale), baseSize(baseSize) {};
 };
 
 struct MomentumComponent

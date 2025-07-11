@@ -37,8 +37,6 @@ namespace Consts {
 		Down = 1ULL << static_cast<int>(UserAction::Down),
 	};
 
-	// << 64 seems not work, my day is ruined and my disappointment is immeasurable
-
 	enum class Action : uint64_t
 	{
 		None = 0,
