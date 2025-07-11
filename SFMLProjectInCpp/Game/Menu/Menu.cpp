@@ -87,16 +87,16 @@ void Menu::CreateAllMenuButtons(sf::Vector2u size) {
 
 	std::vector<std::shared_ptr<ButtonWithType>> mainMenu;
 	mainMenu.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
-	{ defaultSize, font, "Play" }, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Play
+		{ defaultSize, font, "Play" }, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Play
 		}));
 	mainMenu.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
-		{defaultSize, font, "Options"}, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Options
+		{ defaultSize, font, "Options"}, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Options
 		}));
 	mainMenu.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
-		{defaultSize, font, "Credits"}, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Credits
+		{ defaultSize, font, "Credits"}, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Credits
 		}));
 	mainMenu.push_back(std::make_shared<ButtonWithType>(ButtonWithType{
-		{defaultSize, font, "Exit"}, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Exit
+		{ defaultSize, font, "Exit"}, Consts::MenuPlace::MainMenu, Consts::MenuButtonType::Exit
 		}));
 
 	auto mainMenuSize = mainMenu.size();
@@ -125,12 +125,10 @@ void Menu::CreateAllMenuButtons(sf::Vector2u size) {
 
 
 
-	buttons.reserve(10);
+	buttons.reserve(mainMenu.size() + setting.size() + credits.size());
 	buttons.insert(buttons.end(), mainMenu.begin(), mainMenu.end());
 	buttons.insert(buttons.end(), setting.begin(), setting.end());
 	buttons.insert(buttons.end(), credits.begin(), credits.end());
-
-
 }
 
 void Menu::SwitchMenuLocation() {

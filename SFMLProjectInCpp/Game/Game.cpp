@@ -189,7 +189,7 @@ void Game::UpdateMenu()
 {
 	auto viewSize = window->getView().getSize();
 	auto col = sf::Color(0, 0, 0, 200);
-
+	//menu background
 	sf::VertexArray lineStrip(sf::TriangleStrip, 4);
 	lineStrip[0].position = sf::Vector2f(viewSize.x, 0.f);
 	lineStrip[0].color = col;
