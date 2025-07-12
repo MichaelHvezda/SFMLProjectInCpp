@@ -9,7 +9,6 @@
 namespace Consts {
 	//static const std::string TEXTURE_ROCKET = "Textures/RocketSpite.png";
 
-	static const int TEXTURE_ANIMATIONS = 4;
 	static const float MOVE_SIZE = 2.0f;
 	static const float MOVE_ENEMY_SIZE = MOVE_SIZE / 3.f;
 
@@ -17,6 +16,22 @@ namespace Consts {
 	static const float MOVE_EVERY_X_SECOUND = 1 / 60.f;
 	static const float COLDDOWN_TIME_SECOUND = 1.f;
 	static const float PI = static_cast<float>(atan(1) * 4.f);;
+
+	enum TextureAnimationsCount : int
+	{
+		NoAnimation = 1,
+		StandardAnimation = 4,
+	};
+	enum HaveDeadAnimation : bool
+	{
+		No = false,
+		Yes = true,
+	};
+	enum TextureSize
+	{
+		Small = 8,
+		Standard = 32,
+	};
 
 	enum class Direction
 	{
@@ -30,7 +45,7 @@ namespace Consts {
 
 	enum class GraphicObjectType
 	{
-		Projectile, Enemy, Player, PlayerProjectile
+		Projectile, Enemy, Player, PlayerProjectile, Gui,
 	};
 
 	enum class MenuPlace
@@ -92,10 +107,46 @@ namespace Consts {
 	};
 
 	static const std::vector<TextureFilepath> TexturesToLoad = {
-		{  "Textures/RocketSpite.png", { GraphicObjectType::Player, 32, 32, TEXTURE_ANIMATIONS, false, 1}},
-		{  "Textures/Projectil1.png", { GraphicObjectType::PlayerProjectile, 8, 32, TEXTURE_ANIMATIONS,true, 1 }},
-		{  "Textures/Projectil1.png", { GraphicObjectType::Projectile, 8, 32, TEXTURE_ANIMATIONS, true, 1 }},
-		{  "Textures/Enemy.png", { GraphicObjectType::Enemy, 32, 32, TEXTURE_ANIMATIONS, false, 1 }},
+		{  "Textures/RocketSpite.png", {
+			GraphicObjectType::Player,
+			TextureSize::Standard,
+			TextureSize::Standard,
+			TextureAnimationsCount::StandardAnimation,
+			HaveDeadAnimation::No,
+			1 }
+		},
+		{  "Textures/Projectil1.png", {
+			GraphicObjectType::PlayerProjectile,
+			TextureSize::Small,
+			TextureSize::Standard,
+			TextureAnimationsCount::StandardAnimation,
+			HaveDeadAnimation::Yes,
+			1 }
+		},
+		{  "Textures/Projectil1.png", {
+			GraphicObjectType::Projectile,
+			TextureSize::Small,
+			TextureSize::Standard,
+			TextureAnimationsCount::StandardAnimation,
+			HaveDeadAnimation::Yes,
+			1 }
+		},
+		{  "Textures/Enemy.png", {
+			GraphicObjectType::Enemy,
+			TextureSize::Standard,
+			TextureSize::Standard,
+			TextureAnimationsCount::StandardAnimation,
+			HaveDeadAnimation::No,
+			1 }
+		},
+		{  "Textures/Health.png", {
+			GraphicObjectType::Gui,
+			TextureSize::Standard,
+			TextureSize::Standard,
+			TextureAnimationsCount::NoAnimation,
+			HaveDeadAnimation::No,
+			1 }
+		},
 	};
 
 }

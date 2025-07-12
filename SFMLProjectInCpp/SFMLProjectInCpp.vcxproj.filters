@@ -177,6 +177,9 @@
     <Image Include="Textures\RocketSpite.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="Textures\Health.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\arial.ttf">

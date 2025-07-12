@@ -55,11 +55,12 @@ Game::~Game()
 
 void Game::Update()
 {
+	//Logger("Before process time: ", clock.getElapsedTime().asMilliseconds());
 	ProcessEvents(window, this);
+	//Logger("After process time: ", clock.getElapsedTime().asMilliseconds());
 
 	//always reset time
 	auto renderTime = clock.restart().asSeconds();
-	Logger("Render time: ", renderTime);
 	if (!menu->isOpen) {
 		gameTime += renderTime;
 		if (player->actionColdDown > 0)
@@ -74,15 +75,18 @@ void Game::Update()
 			}
 		}
 	}
+	//Logger("After action time set: ", clock.getElapsedTime().asMilliseconds());
 
 
 	if (isGameStart) {
 		UpdateGame();
 	}
+	//Logger("After game update: ", clock.getElapsedTime().asMilliseconds());
 
 	if (menu->isOpen) {
 		UpdateMenu();
 	}
+	//Logger("After menu update: ", clock.getElapsedTime().asMilliseconds());
 }
 
 void Game::MakeActions()

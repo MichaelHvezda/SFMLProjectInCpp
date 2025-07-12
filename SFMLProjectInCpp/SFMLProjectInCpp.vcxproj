@@ -184,6 +184,7 @@
     <None Include="sfml-window-d-2.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Textures\Health.png" />
     <Image Include="Textures\Projectil1.png" />
     <Image Include="Textures\Projectil1Old.png" />
     <Image Include="Textures\rocket.png" />
