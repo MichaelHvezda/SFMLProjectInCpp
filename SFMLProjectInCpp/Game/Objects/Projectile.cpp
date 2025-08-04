@@ -39,7 +39,7 @@ void Projectile::Move()
 		sprite->move(direction);
 }
 
-void Projectile::Draw(float gameTime, sf::RenderWindow* w)
+void Projectile::Draw(float gameTime, sf::RenderWindow& w)
 {
 
 	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
@@ -66,6 +66,6 @@ void Projectile::Draw(float gameTime, sf::RenderWindow* w)
 	}
 
 	if (isAlive) {
-		w->draw(*sprite);
+		w.draw(*sprite);
 	}
 }

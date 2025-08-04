@@ -28,7 +28,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Draw(float gameTime, sf::RenderWindow* w)
+void Enemy::Draw(float gameTime, sf::RenderWindow& w)
 {
 	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
 	int animation = animationPos % textureCount;
@@ -53,7 +53,7 @@ void Enemy::Draw(float gameTime, sf::RenderWindow* w)
 	}
 
 	if (isAlive) {
-		w->draw(*sprite);
+		w.draw(*sprite);
 	}
 }
 

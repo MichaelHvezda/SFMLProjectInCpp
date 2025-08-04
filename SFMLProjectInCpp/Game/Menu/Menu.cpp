@@ -31,7 +31,7 @@ Menu::~Menu()
 
 }
 
-void Menu::Draw(sf::RenderWindow* window)
+void Menu::Draw(sf::RenderWindow& window)
 {
 	for (auto& b : selectedBtns) {
 		//if (i == 0)
@@ -73,7 +73,7 @@ void Menu::SetActive(sf::Vector2i mousePos) {
 		b->btn.SetActive(mousePos);
 	}
 }
-void Menu::SetPressed(sf::RenderWindow* window, Game* game, sf::Vector2i mousePos)
+void Menu::SetPressed(sf::RenderWindow& window, Game* game, sf::Vector2i mousePos)
 {
 	for (const auto& b : selectedBtns) {
 		if (b->btn.ClickInside(mousePos))
@@ -145,7 +145,7 @@ void Menu::SwitchMenuLocation() {
 	}
 }
 
-void Menu::ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, ButtonWithType& btnWithType) {
+void Menu::ProcessMenuBtnClick(sf::RenderWindow& window, Game* game, ButtonWithType& btnWithType) {
 
 
 	switch (btnWithType.type)
@@ -164,7 +164,7 @@ void Menu::ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, ButtonWithT
 		SwitchMenuLocation();
 		break;
 	case Consts::MenuButtonType::Exit:
-		window->close();
+		window.close();
 		break;
 	case Consts::MenuButtonType::Back:
 		menuPlace = Consts::MenuPlace::MainMenu;

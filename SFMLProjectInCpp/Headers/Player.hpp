@@ -28,7 +28,7 @@ public:
 	Player(std::shared_ptr<TextureWithProperties>& t);
 	~Player();
 public:
-	void Draw(float gameTime, sf::RenderWindow* w);
+	void Draw(float gameTime, sf::RenderWindow& w);
 	void SetDefaultPosition(sf::RenderWindow* w);
 	void Move(const sf::Vector2u& windowSize, sf::Vector2f scale);
 

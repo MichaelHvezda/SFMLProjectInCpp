@@ -24,7 +24,7 @@ public:
 	Enemy(std::shared_ptr<TextureWithProperties>& t, sf::Vector2f pos, float gameTime, sf::Vector2f dir, sf::Vector2f scale);
 	virtual ~Enemy();
 public:
-	void Draw(float gameTime, sf::RenderWindow* w);
+	void Draw(float gameTime, sf::RenderWindow& w);
 	void Move(const sf::Vector2u& windowSize, const sf::Vector2f& playerPosition);
 };
 

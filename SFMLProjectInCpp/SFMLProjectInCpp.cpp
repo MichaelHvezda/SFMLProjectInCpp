@@ -2,18 +2,16 @@
 //
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <Logger.hpp>
 #include <Game.hpp>
+#include <SFML/Graphics.hpp>
 
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 	//sf::CircleShape shape(100.f);
 	//shape.setFillColor(sf::Color::Green);
-	Game game(&window);
-	window.setFramerateLimit(144);
+	Game game;
 	//sf::Texture texture;
 	//sf::Sprite sprite;
 	//sf::Shader shader;
@@ -32,24 +30,8 @@ int main()
 	//	Logger("Font not exist");
 	//}
 	//text.setFont(font);
+	game.Run();
 
-	while (window.isOpen())
-	{
-		//float currentTime = clock.restart().asSeconds();
-		//float fps = 1.f / currentTime;
-		////Logger("fps :", fps);
-		//text.setString(std::to_string(fps));
-
-		window.clear();
-		//std::vector<Consts::Direction> directions;
-		game.Update();
-
-		//window.draw(sprite, &shader);
-		//window.draw(text);
-		//window.draw(shape);
-		window.display();
-
-	}
 
 	return 0;
 }

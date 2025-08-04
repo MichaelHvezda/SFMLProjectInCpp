@@ -1,5 +1,5 @@
 #include <KeyPress.hpp>
-void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* game)
+void ProcessKeyPressed(const sf::Event& event, Game* game)
 {
 
 	//Logger("Key pressed: ", event.key.scancode, event.key.code);
@@ -11,7 +11,7 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 			game->menu->isOpen = true;
 			return;
 		}
-		window->close();
+		game->window.close();
 		Logger("window close by ESCAPE key pressed");
 		return;
 	}
@@ -36,7 +36,7 @@ void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* g
 	//SetActions(game);
 }
 
-void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* game)
+void ProcessKeyReleased(const sf::Event& event, Game* game)
 {
 
 	//Logger("Key released: ", event.key.scancode, event.key.code);
@@ -54,7 +54,7 @@ void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* 
 
 }
 
-void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* game)
+void ProcessMouseMoved(const sf::Event& event, Game* game)
 {
 	if (game->menu->isOpen)
 	{
@@ -68,16 +68,16 @@ void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* g
 		game->menu->SetActive(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
 	}
 }
-void ProcessMousePressed(sf::RenderWindow* window, const sf::Event& event, Game* game)
+void ProcessMousePressed(const sf::Event& event, Game* game)
 {
 
 	if (!game->menu->isClicked && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && game->menu->isOpen)
 	{
 		game->menu->isClicked = true;
-		game->menu->SetPressed(window, game, sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+		game->menu->SetPressed(game->window, game, sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 	}
 }
-void ProcessMouseReleased(sf::RenderWindow* window, const sf::Event& event, Game* game)
+void ProcessMouseReleased(const sf::Event& event, Game* game)
 {
 	if (game->menu->isClicked)
 	{

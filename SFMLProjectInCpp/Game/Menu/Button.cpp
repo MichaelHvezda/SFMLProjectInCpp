@@ -47,11 +47,11 @@ bool Button::ClickInside(sf::Vector2i mousePos)
 	return false;
 }
 
-void Button::Draw(sf::RenderWindow* window, sf::Shader* selectedShader)
+void Button::Draw(sf::RenderWindow& window, sf::Shader* selectedShader)
 {
 	selectedShader->setUniform("isSelected", isSelected);
-	window->draw(sprite, selectedShader);
-	window->draw(text);
+	window.draw(sprite, selectedShader);
+	window.draw(text);
 }
 
 void Button::Resize(sf::Vector2f position, sf::Vector2f scale)

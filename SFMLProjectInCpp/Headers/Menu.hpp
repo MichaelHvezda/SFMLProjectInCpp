@@ -11,10 +11,10 @@ public:
 	bool isOpen;
 	bool isClicked;
 public:
-	void Draw(sf::RenderWindow* window);
+	void Draw(sf::RenderWindow& window);
 	void Resize(sf::Vector2f size, sf::Vector2f scale);
 	void SetActive(sf::Vector2i mousePos);
-	void SetPressed(sf::RenderWindow* window, Game* game, sf::Vector2i mousePos);
+	void SetPressed(sf::RenderWindow& window, Game* game, sf::Vector2i mousePos);
 public:
 	Menu(sf::Vector2u size);
 	~Menu();
@@ -29,7 +29,7 @@ private:
 private:
 	void CreateAllMenuButtons(sf::Vector2u size);
 	void SwitchMenuLocation();
-	void ProcessMenuBtnClick(sf::RenderWindow* window, Game* game, ButtonWithType& btnWithType);
+	void ProcessMenuBtnClick(sf::RenderWindow& window, Game* game, ButtonWithType& btnWithType);
 };
 
 

@@ -20,7 +20,7 @@ public:
 	std::vector<std::shared_ptr<Projectile>> projectiles;
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	std::unique_ptr<Player> player;
-	sf::RenderWindow* window;
+	sf::RenderWindow window;
 	std::unique_ptr<Menu> menu;
 	sf::Clock clock;
 	sf::Vector2f scale;
@@ -28,13 +28,14 @@ public:
 	int moveFrameCount;
 	bool isGameStart;
 public:
-	Game(sf::RenderWindow* w);
+	Game();
 	virtual ~Game();
 public:
+	void Run();
 	void Update();
 	void MakeActions();
-	void Collisions();
 private:
+	void Collisions();
 	bool IsInsideWindow(sf::Vector2f pos);
 	void UpdateGame();
 	void UpdateMenu();

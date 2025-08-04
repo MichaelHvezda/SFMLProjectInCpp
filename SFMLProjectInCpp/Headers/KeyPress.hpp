@@ -8,11 +8,11 @@
 #include <Consts.hpp>
 
 
-void ProcessKeyPressed(sf::RenderWindow* window, const sf::Event& event, Game* game);
-void ProcessKeyReleased(sf::RenderWindow* window, const sf::Event& event, Game* game);
-void ProcessMouseMoved(sf::RenderWindow* window, const sf::Event& event, Game* game);
-void ProcessMousePressed(sf::RenderWindow* window, const sf::Event& event, Game* game);
-void ProcessMouseReleased(sf::RenderWindow* window, const sf::Event& event, Game* game);
+void ProcessKeyPressed(const sf::Event& event, Game* game);
+void ProcessKeyReleased(const sf::Event& event, Game* game);
+void ProcessMouseMoved(const sf::Event& event, Game* game);
+void ProcessMousePressed(const sf::Event& event, Game* game);
+void ProcessMouseReleased(const sf::Event& event, Game* game);
 template<typename T>
 void SetActions(const Consts::KeyMap<T>& keyMap, std::vector<T>& list);
 template<typename T>

@@ -15,7 +15,7 @@ class Button
 public:
 	bool isSelected;
 public:
-	void Draw(sf::RenderWindow* window, sf::Shader* selectedShader);
+	void Draw(sf::RenderWindow& window, sf::Shader* selectedShader);
 	void Resize(sf::Vector2f position, sf::Vector2f scale);
 	void SetPosition(float x, float y);
 	void SetActive(sf::Vector2i mousePos);

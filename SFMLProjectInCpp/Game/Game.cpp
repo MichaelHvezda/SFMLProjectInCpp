@@ -1,8 +1,13 @@
 #include <Game.hpp>
 
-Game::Game(sf::RenderWindow* w)
+//init before ctor
+Game::Game() :window(sf::VideoMode(800, 600), "SFML works!"),
+gameTime(0.f),
+moveFrameCount(0),
+isGameStart(false)
 {
-	window = w;
+	window.setFramerateLimit(144);
+
 	int i = 0;
 	try
 	{
@@ -34,18 +39,18 @@ Game::Game(sf::RenderWindow* w)
 	//Sprites.push_back(std::make_unique<sf::Sprite>());
 
 	//CreateSprite(Sprites[0], Textures[0]);
-	player->SetDefaultPosition(window);
+	player->SetDefaultPosition(&window);
 
 	for (auto& text : textures)
 	{
 		if (text->props.type == Consts::GraphicObjectType::Enemy)
 		{
-			enemies.push_back(std::make_shared<Enemy>(text, sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f), gameTime, sf::Vector2f(0.f, -Consts::MOVE_SIZE), scale));
+			enemies.push_back(std::make_shared<Enemy>(text, sf::Vector2f(window.getSize().x / 2.f, window.getSize().y / 2.f), gameTime, sf::Vector2f(0.f, -Consts::MOVE_SIZE), scale));
 			break;
 		}
 	}
 
-	menu = std::make_unique<Menu>(window->getSize());
+	menu = std::make_unique<Menu>(window.getSize());
 }
 
 Game::~Game()
@@ -53,10 +58,30 @@ Game::~Game()
 
 }
 
+void Game::Run()
+{
+	while (window.isOpen())
+	{
+		//float currentTime = clock.restart().asSeconds();
+		//float fps = 1.f / currentTime;
+		////Logger("fps :", fps);
+		//text.setString(std::to_string(fps));
+
+		window.clear();
+		//std::vector<Consts::Direction> directions;
+		Update();
+
+		//window.draw(sprite, &shader);
+		//window.draw(text);
+		//window.draw(shape);
+		window.display();
+
+	}
+}
 void Game::Update()
 {
 	//Logger("Before process time: ", clock.getElapsedTime().asMilliseconds());
-	ProcessEvents(window, this);
+	ProcessEvents(this);
 	//Logger("After process time: ", clock.getElapsedTime().asMilliseconds());
 
 	//always reset time
@@ -144,7 +169,7 @@ void Game::UpdateGame()
 
 		if (moveFrameCount != moveFrameCnt)
 		{
-			enemy->Move(window->getSize(), player->sprite->getPosition());
+			enemy->Move(window.getSize(), player->sprite->getPosition());
 		}
 
 		enemy->Draw(gameTime, window);
@@ -177,7 +202,7 @@ void Game::UpdateGame()
 
 	if (moveFrameCount != moveFrameCnt)
 	{
-		player->Move(window->getSize(), scale);
+		player->Move(window.getSize(), scale);
 	}
 	player->Draw(gameTime, window);
 
@@ -191,7 +216,7 @@ void Game::UpdateGame()
 }
 void Game::UpdateMenu()
 {
-	auto viewSize = window->getView().getSize();
+	auto viewSize = window.getView().getSize();
 	auto col = sf::Color(0, 0, 0, 200);
 	//menu background
 	sf::VertexArray lineStrip(sf::TriangleStrip, 4);
@@ -206,7 +231,7 @@ void Game::UpdateMenu()
 
 	lineStrip[3].position = sf::Vector2f(0.f, viewSize.y);
 	lineStrip[3].color = col;
-	window->draw(lineStrip);
+	window.draw(lineStrip);
 	menu->Draw(window);
 }
 
@@ -283,7 +308,7 @@ void Game::Collisions()
 
 bool Game::IsInsideWindow(sf::Vector2f pos)
 {
-	auto wSize = window->getSize();
+	auto wSize = window.getSize();
 
 	if (wSize.x < pos.x || wSize.y < pos.y)
 		return true;

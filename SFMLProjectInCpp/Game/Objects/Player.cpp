@@ -21,7 +21,7 @@ Player::~Player()
 {
 }
 
-void Player::Draw(float gameTime, sf::RenderWindow* w)
+void Player::Draw(float gameTime, sf::RenderWindow& w)
 {
 	int animationPos = static_cast<int>((gameTime - bornTime) / Consts::ANIMATE_EVERY_X_SECOUND);
 	int animation = animationPos % textureCount;
@@ -29,11 +29,11 @@ void Player::Draw(float gameTime, sf::RenderWindow* w)
 
 	if (isAlive)
 	{
-		w->draw(*sprite);
+		w.draw(*sprite);
 	}
 
 	auto bounds = sprite->getGlobalBounds();
-	auto winSize = w->getSize();
+	auto winSize = w.getSize();
 
 	//std::cout << bounds.getPosition().x << " " << bounds.getPosition().y << std::endl;
 	if (bounds.getPosition().x < 0)
@@ -41,7 +41,7 @@ void Player::Draw(float gameTime, sf::RenderWindow* w)
 		sf::Sprite spriteNew(*sprite);
 
 		spriteNew.move(static_cast<float>(winSize.x), 0.f);
-		w->draw(spriteNew);
+		w.draw(spriteNew);
 
 		if (bounds.getPosition().x + bounds.getSize().x > 0)
 		{
@@ -54,7 +54,7 @@ void Player::Draw(float gameTime, sf::RenderWindow* w)
 		sf::Sprite spriteNew(*sprite);
 
 		spriteNew.move(-1.f * winSize.x, 0.f);
-		w->draw(spriteNew);
+		w.draw(spriteNew);
 
 		if (bounds.getPosition().x > winSize.x)
 		{
