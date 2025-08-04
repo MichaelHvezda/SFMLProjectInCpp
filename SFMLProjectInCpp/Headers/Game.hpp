@@ -34,6 +34,7 @@ public:
 	void Run();
 	void Update();
 	void MakeActions();
+	void Resize(const sf::Event& event, sf::Vector2u& size);
 private:
 	void Collisions();
 	bool IsInsideWindow(sf::Vector2f pos);

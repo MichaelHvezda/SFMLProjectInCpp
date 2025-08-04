@@ -143,6 +143,58 @@ void Game::MakeActions()
 }
 
 
+void Game::Resize(const sf::Event& event, sf::Vector2u& size)
+{
+	Logger("new width: ", event.size.width);
+	Logger("new height: ", event.size.height);
+	sf::FloatRect visibleArea(0.f, 0.f, static_cast<float>(event.size.width), static_cast<float>(event.size.height));
+	window.setView(sf::View(visibleArea));
+
+	auto scaleX = event.size.width / static_cast<float>(size.x);
+	auto scaleY = event.size.height / static_cast<float>(size.y);
+
+	auto& defau = window.getDefaultView().getSize();
+	scale.x = event.size.width / static_cast<float>(defau.x);
+	scale.y = event.size.height / static_cast<float>(defau.y);
+
+	{
+		auto& pos = player->sprite->getPosition();
+		auto rateX = pos.x / static_cast<float>(size.x);
+		auto rateY = pos.y / static_cast<float>(size.y);
+
+		player->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
+		player->sprite->scale(scaleX, scaleY);
+	}
+
+	for (auto& proj : projectiles)
+	{
+		auto& pos = proj->sprite->getPosition();
+		auto rateX = pos.x / static_cast<float>(size.x);
+		auto rateY = pos.y / static_cast<float>(size.y);
+
+		proj->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
+		proj->sprite->scale(scaleX, scaleY);
+
+		proj->direction.x *= scaleX;
+		proj->direction.y *= scaleY;
+	}
+
+	for (auto& enemy : enemies)
+	{
+		auto& pos = enemy->sprite->getPosition();
+		auto rateX = pos.x / static_cast<float>(size.x);
+		auto rateY = pos.y / static_cast<float>(size.y);
+
+		enemy->sprite->setPosition(rateX * event.size.width, rateY * event.size.height);
+		enemy->sprite->scale(scaleX, scaleY);
+
+		enemy->direction.x *= scaleX;
+		enemy->direction.y *= scaleY;
+	}
+
+	menu->Resize(sf::Vector2f(event.size.width, event.size.height), sf::Vector2f(scaleX, scaleY));
+}
+
 void Game::UpdateGame()
 {
 	//int animationPos = (gameTime - static_cast<int>(gameTime)) / Consts::ANIMATE_EVERY_X_SECOUND;
@@ -180,7 +232,7 @@ void Game::UpdateGame()
 			{
 				if (text->props.type == Consts::GraphicObjectType::Projectile)
 				{
-					auto playerPos = player->sprite->getPosition();
+					auto& playerPos = player->sprite->getPosition();
 					auto pos = enemy->sprite->getPosition() - playerPos;
 					auto norm = (abs(pos.x) + abs(pos.y)) * -1.f;
 					pos.x = pos.x / norm;
